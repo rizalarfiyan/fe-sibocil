@@ -1,4 +1,4 @@
-import AuthGraphic from '@/assets/graphics/login.svg'
+import AuthGraphic from '@/assets/graphics/auth.svg'
 
 export default function AuthLayout({
   children,
