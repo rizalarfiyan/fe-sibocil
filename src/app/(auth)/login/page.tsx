@@ -1,11 +1,14 @@
-import Typography from '@/components/Typography'
+import Base from '@/screen/Auth/Base'
+import LoginScreen from '@/screen/Auth/Login/Screen'
 
 export default function Login() {
   return (
-    <div className='w-full max-w-md space-y-10 text-center'>
-      <Typography variant='h2' as='h1'>
-        Login Page!
-      </Typography>
-    </div>
+    <Base
+      title='Login'
+      description='Your gateway to a sustainable future, where recycling meets innovation in the palm of your hand.'
+      hasBack
+    >
+      <LoginScreen />
+    </Base>
   )
 }
