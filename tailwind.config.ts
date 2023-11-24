@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
 
 const config: Config = {
-  darkMode: 'class',
+  darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -20,7 +20,10 @@ const config: Config = {
       },
       container: {
         center: true,
-        padding: '8px',
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
       },
       keyframes: {
         'accordion-down': {
@@ -46,7 +49,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 }
 
 export default config
