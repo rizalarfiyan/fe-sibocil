@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={poppins.className}>
-        <Suspense fallback={<LoadingScreen reason='Loading app' />}>
+        <Suspense fallback={<LoadingScreen reason='Loading...' />}>
           {children}
         </Suspense>
       </body>

@@ -1,7 +1,7 @@
 import Base from '@/screen/Auth/Base'
 import OtpScreen from '@/screen/Auth/Otp/Screen'
 
-export default function Login() {
+export default function OTP() {
   return (
     <Base
       title='OTP'
