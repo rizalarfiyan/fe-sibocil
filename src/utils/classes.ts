@@ -14,7 +14,6 @@ export function createMemoClass<T>(func: (props: T) => string) {
         ? Object.keys(args).map((key) => args[key])
         : []
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return useMemo(() => func(args), dependencies)
   }
 }
