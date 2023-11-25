@@ -1,26 +1,32 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
+import { COOKIE } from './constants'
+
+const handleVerification = (req: NextRequest) => {
+  const tokenName = COOKIE.TokenAuthVerify
+  const cookieToken = req.cookies.get(tokenName)?.value
+  const paramToken = req.nextUrl.searchParams.get(tokenName)
+  if (!cookieToken && !paramToken) {
+    return NextResponse.redirect(new URL('/login', req.url))
+  }
+
+  if (!paramToken) {
+    return
+  }
+
+  const redirect = NextResponse.redirect(new URL(req.nextUrl.pathname, req.url))
+  redirect.cookies.set(tokenName, paramToken)
+  return redirect
+}
+
 export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
-
-  if (['/otp', '/verification'].includes(pathname)) {
-    const cookieToken = req.cookies.get('token')?.value
-    const paramToken = req.nextUrl.searchParams.get('token')
-    if (!cookieToken && !paramToken) {
-      return NextResponse.redirect(new URL('/login', req.url))
-    }
-
-    if (!paramToken) {
-      return
-    }
-
-    const redirect = NextResponse.redirect(new URL(pathname, req.url))
-    redirect.cookies.set('token', paramToken)
-    return redirect
+  switch (req.nextUrl.pathname) {
+    case '/verification':
+      return handleVerification(req)
   }
 }
 
 export const config = {
-  matcher: ['/otp', '/verification'],
+  matcher: ['/verification'],
 }

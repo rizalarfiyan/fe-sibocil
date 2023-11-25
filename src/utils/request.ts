@@ -23,7 +23,7 @@ export const requestHandler = <T, V, E = BaseError<V>>(
         message:
           err.response?.data.message || err.response?.statusText || err.message,
         data: err.response?.data.data as V,
-        // error: e as E,
+        error: e as E,
       }
     }
   }

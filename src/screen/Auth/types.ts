@@ -5,10 +5,25 @@ export enum AuthVerificationStep {
 }
 
 export interface AuthVerificationRequest {
-  Token: string
+  token: string
 }
 
-export interface AuthVerificationResponse {
-  Step: AuthVerificationStep
-  Token: string
+export interface AuthVerificationRegisterResponse {
+  step: AuthVerificationStep.Register
 }
+
+export interface AuthVerificationOtpResponse {
+  step: AuthVerificationStep.Otp
+  phone_number: string
+  remaining_time: number
+}
+
+export interface AuthVerificationDoneResponse {
+  step: AuthVerificationStep.Done
+  token: string
+}
+
+export type AuthVerificationResponse =
+  | AuthVerificationOtpResponse
+  | AuthVerificationDoneResponse
+  | AuthVerificationRegisterResponse
