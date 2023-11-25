@@ -1,12 +1,10 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-const validateAuth = ['/otp', '/test']
-
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  if (validateAuth.includes(pathname)) {
+  if (['/otp', '/test'].includes(pathname)) {
     const cookieToken = req.cookies.get('token')?.value
     const paramToken = req.nextUrl.searchParams.get('token')
     if (!cookieToken && !paramToken) {
@@ -24,5 +22,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [...validateAuth],
+  matcher: ['/otp', '/test'],
 }

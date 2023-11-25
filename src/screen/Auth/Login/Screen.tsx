@@ -12,7 +12,8 @@ import useLogin from './hooks'
 interface LoginProps {}
 
 const LoginScreen: React.FC<LoginProps> = () => {
-  const { form, isDisable, onSubmit, onGoogleLogin } = useLogin()
+  const { form, isDisable, onSubmit, onGoogleLogin, isDisableGoogle } =
+    useLogin()
 
   return (
     <div className='space-y-5'>
@@ -24,6 +25,7 @@ const LoginScreen: React.FC<LoginProps> = () => {
           onClick={onGoogleLogin}
           leftIcon={<GoogleIcon className='mr-2 h-7 w-7' />}
           className='max-w-[220px] border-secondary-300'
+          disabled={isDisableGoogle}
         >
           Login With Google
         </Button>

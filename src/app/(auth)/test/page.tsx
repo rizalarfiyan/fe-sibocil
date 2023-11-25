@@ -13,7 +13,7 @@ export const getHealth = requestHandler<null, Status[]>((params) =>
 )
 
 export default async function Test() {
-  const res = await getHealth(null)
+  const res = await getHealth()
   console.log(JSON.stringify(res, null, 2))
 
   return <Base title='Testing' description={res.message} />
