@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import '../styles/globals.css'
 
 import LoadingScreen from '@/components/LoadingScreen'
+import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 const poppins = Poppins({
   weight: ['400', '600'],
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={poppins.className}>
         <Suspense fallback={<LoadingScreen reason='Loading...' />}>
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </Suspense>
       </body>
     </html>
