@@ -10,6 +10,7 @@ export default async function Verification() {
     token: token,
   })
 
+  //! Change title
   return (
     <Base
       title='Verification'

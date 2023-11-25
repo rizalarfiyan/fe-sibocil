@@ -1,8 +1,7 @@
-'use client'
-
 import { SuccessResponse } from '@/@types'
 
 import OtpScreen from '../Otp/Screen'
+import RegisterScreen from '../Register/Screen'
 import { AuthVerificationResponse, AuthVerificationStep } from '../types'
 
 interface VerificationScreenErrorProps {
@@ -20,7 +19,12 @@ const VerificationScreen: React.FC<
 > = ({ data, message }) => {
   switch (data.step) {
     case AuthVerificationStep.Register:
-      return <h1>{message}</h1>
+      return (
+        <RegisterScreen
+          first_name={data.first_name}
+          last_name={data.last_name}
+        />
+      )
     case AuthVerificationStep.Otp:
       return (
         <OtpScreen

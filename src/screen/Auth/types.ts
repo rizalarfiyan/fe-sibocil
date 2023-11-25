@@ -10,6 +10,8 @@ export interface AuthVerificationRequest {
 
 export interface AuthVerificationRegisterResponse {
   step: AuthVerificationStep.Register
+  first_name: string
+  last_name: string
 }
 
 export interface AuthVerificationOtpResponse {
