@@ -29,3 +29,31 @@ export type AuthVerificationResponse =
   | AuthVerificationOtpResponse
   | AuthVerificationDoneResponse
   | AuthVerificationRegisterResponse
+
+export type AuthSendOtpRequest = {
+  phone_number: string
+}
+
+export type AuthSendOtpResponse = {
+  token: string
+}
+
+export type AuthSendVerificationOtpRequest = {
+  otp: string
+  token: string
+}
+
+export type AuthSendVerificationOtpResponse = {
+  token: string
+}
+
+export type AuthRegisterRequest = {
+  token: string
+  phone_number: string
+  first_name: string
+  last_name: string
+}
+
+export type AuthRegisterResponse = {
+  token: string
+}

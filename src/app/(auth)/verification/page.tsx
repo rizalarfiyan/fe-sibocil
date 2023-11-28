@@ -10,6 +10,8 @@ export default async function Verification() {
     token: token,
   })
 
+  console.log(res)
+
   //! Change title
   return (
     <Base

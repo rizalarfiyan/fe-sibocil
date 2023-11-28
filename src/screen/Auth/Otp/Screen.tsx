@@ -39,7 +39,8 @@ interface OtpProps {
 }
 
 const OtpScreen: React.FC<OtpProps> = (props) => {
-  const { otp, setOtp, isDisable, onResendOtp, onSubmitOtp } = useOtp()
+  const { otp, setOtp, isDisable, isLoading, onResendOtp, onSubmitOtp } =
+    useOtp()
 
   return (
     <div className='space-y-8'>
@@ -67,7 +68,12 @@ const OtpScreen: React.FC<OtpProps> = (props) => {
         />
         <RemainingOtp {...props} onResend={onResendOtp} />
       </div>
-      <Button isFluid disabled={isDisable} onClick={onSubmitOtp}>
+      <Button
+        isFluid
+        disabled={isDisable}
+        onClick={onSubmitOtp}
+        isLoading={isLoading}
+      >
         Send
       </Button>
     </div>

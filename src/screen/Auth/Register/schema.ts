@@ -5,7 +5,7 @@ import { REGEX_PHONE_NUMBER } from '@/constants'
 //! FIXME schema here
 const schema = z.object({
   first_name: z.string().min(5, 'First name is required.'),
-  last_name: z.string().min(5, 'First name is required.'),
+  last_name: z.string(),
   phone_number: z
     .string()
     .refine(

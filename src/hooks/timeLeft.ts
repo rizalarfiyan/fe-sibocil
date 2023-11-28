@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 
 const useTimeLeft = (rawTimeLeft: number) => {
-  const [formattedTime, setFormattedTime] = useState('')
+  const [formattedTime, setFormattedTime] = useState('00:00')
   const [timeLeft, setTimeLeft] = useState(rawTimeLeft)
 
   useEffect(() => {

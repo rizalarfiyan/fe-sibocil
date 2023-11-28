@@ -12,8 +12,14 @@ import useLogin from './hooks'
 interface LoginProps {}
 
 const LoginScreen: React.FC<LoginProps> = () => {
-  const { form, isDisable, onSubmit, onGoogleLogin, isDisableGoogle } =
-    useLogin()
+  const {
+    form,
+    isDisable,
+    isLoading,
+    onSubmit,
+    onGoogleLogin,
+    isDisableGoogle,
+  } = useLogin()
 
   return (
     <div className='space-y-5'>
@@ -48,7 +54,12 @@ const LoginScreen: React.FC<LoginProps> = () => {
               </Form.Item>
             )}
           />
-          <Button type='submit' isFluid disabled={isDisable}>
+          <Button
+            type='submit'
+            isFluid
+            isLoading={isLoading}
+            disabled={isDisable}
+          >
             Login
           </Button>
         </form>
