@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { COOKIE } from '@/constants'
+
 import schema from './schema'
 import { RegisterProps } from './Screen'
 import { register } from '../service'
@@ -24,10 +26,8 @@ const useRegister = (props: RegisterProps) => {
 
   const apiRegister = useMutation({
     mutationFn: register,
-    onSuccess: ({ data }) => {
-      //! navigate to halaman verify, send otp success, create user
-      console.log('onSuccess: ', data)
-      router.replace('/verification')
+    onSuccess: () => {
+      router.refresh()
     },
     onError: (error) => {
       //! update with toastr
@@ -37,9 +37,9 @@ const useRegister = (props: RegisterProps) => {
 
   const { isDirty, isValid } = form.formState
   const onSubmit = (data: z.infer<typeof schema>) => {
-    const token = Cookies.get('token')
+    const token = Cookies.get(COOKIE.AuthTokenVerify)
     if (!token) {
-      router.push('/login')
+      router.replace('/login')
     }
 
     apiRegister.mutate({

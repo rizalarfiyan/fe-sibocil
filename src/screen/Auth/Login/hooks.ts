@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { API_BASE_URL } from '@/constants'
+import { API_BASE_URL, COOKIE } from '@/constants'
 
 import schema from './schema'
 import { sendOtp } from '../service'
@@ -24,13 +25,8 @@ const useLogin = () => {
   const otp = useMutation({
     mutationFn: sendOtp,
     onSuccess: ({ data }) => {
-      //! navigate to halaman verify, send otp success, create user
-      console.log('onSuccess: ', data)
-      router.replace('/verification', {
-        query: {
-          token: data.token,
-        },
-      })
+      Cookies.set(COOKIE.AuthTokenVerify, data.token)
+      router.replace('/verification')
     },
     onError: (error) => {
       //! update with toastr

@@ -1,16 +1,15 @@
 import { cookies } from 'next/headers'
 
+import { COOKIE } from '@/constants'
 import Base from '@/screen/Auth/Base'
 import { verification } from '@/screen/Auth/service'
 import VerificationScreen from '@/screen/Auth/Verification/Screen'
 
 export default async function Verification() {
-  const token = cookies().get('token')?.value || ''
+  const token = cookies().get(COOKIE.AuthTokenVerify)?.value
   const res = await verification({
-    token: token,
+    token: token || '',
   })
-
-  console.log(res)
 
   //! Change title
   return (
@@ -18,10 +17,10 @@ export default async function Verification() {
       title='Verification'
       description='Safeguarding your journey towards sustainability with seamless and trusted user authentication.'
     >
-      {res.code === 422 ? (
-        <VerificationScreen.Error message={res.message} />
-      ) : (
+      {res.code === 200 ? (
         <VerificationScreen {...res} />
+      ) : (
+        <VerificationScreen.Error message={res.message} />
       )}
     </Base>
   )

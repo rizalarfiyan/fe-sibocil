@@ -1,11 +1,15 @@
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+
+import { COOKIE } from '@/constants'
 
 import { verificationOtp } from '../service'
 
 const useOtp = () => {
   const [otp, setOtp] = useState('')
+  const router = useRouter()
 
   const onResendOtp = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -14,8 +18,9 @@ const useOtp = () => {
   const apiVerificationOtp = useMutation({
     mutationFn: verificationOtp,
     onSuccess: ({ data }) => {
-      //! navigate to halaman verify, send otp success, create user
-      console.log('onSuccess: ', data)
+      Cookies.remove(COOKIE.AuthTokenVerify)
+      Cookies.set(COOKIE.AuthToken, data.token)
+      router.replace('/dashboard')
     },
     onError: (error) => {
       //! update with toastr
@@ -25,9 +30,14 @@ const useOtp = () => {
 
   const onSubmitOtp = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    const token = Cookies.get(COOKIE.AuthTokenVerify)
+    if (!token) {
+      router.replace('/login')
+    }
+
     apiVerificationOtp.mutate({
       otp,
-      token: Cookies.get('token') || '',
+      token: token as string,
     })
   }
 

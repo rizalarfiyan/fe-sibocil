@@ -1,5 +1,6 @@
 import { SuccessResponse } from '@/@types'
 
+import DoneScreen from '../Done/Screen'
 import OtpScreen from '../Otp/Screen'
 import RegisterScreen from '../Register/Screen'
 import { AuthVerificationResponse, AuthVerificationStep } from '../types'
@@ -33,7 +34,7 @@ const VerificationScreen: React.FC<
         />
       )
     case AuthVerificationStep.Done:
-      return <h1>{message}</h1>
+      return <DoneScreen message={message} token={data.token} />
     default:
       return <VerificationScreenError message={message} />
   }

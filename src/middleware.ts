@@ -4,9 +4,9 @@ import { NextResponse } from 'next/server'
 import { COOKIE } from './constants'
 
 const handleVerification = (req: NextRequest) => {
-  const tokenName = COOKIE.TokenAuthVerify
+  const tokenName = COOKIE.AuthTokenVerify
   const cookieToken = req.cookies.get(tokenName)?.value
-  const paramToken = req.nextUrl.searchParams.get(tokenName)
+  const paramToken = req.nextUrl.searchParams.get('token')
   if (!cookieToken && !paramToken) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
