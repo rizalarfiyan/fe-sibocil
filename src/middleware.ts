@@ -2,8 +2,33 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 import { COOKIE } from './constants'
+import { isLoggedIn } from './utils/auth'
+
+const handleToDashboard = (req: NextRequest) => {
+  const cookieAuth = isLoggedIn(req)
+  if (cookieAuth) {
+    return NextResponse.redirect(new URL('/dashboard', req.url))
+  }
+}
+
+const handleToLogin = (req: NextRequest) => {
+  const cookieAuth = isLoggedIn(req)
+  if (!cookieAuth) {
+    return NextResponse.redirect(new URL('/login', req.url))
+  }
+}
+
+const handleToVerification = (req: NextRequest) => {
+  const cookieToken = req.cookies.get(COOKIE.AuthTokenVerify)?.value
+  if (cookieToken) {
+    return NextResponse.redirect(new URL('/verification', req.url))
+  }
+}
 
 const handleVerification = (req: NextRequest) => {
+  const dashboard = handleToDashboard(req)
+  if (dashboard) return dashboard
+
   const tokenName = COOKIE.AuthTokenVerify
   const cookieToken = req.cookies.get(tokenName)?.value
   const paramToken = req.nextUrl.searchParams.get('token')
@@ -20,13 +45,37 @@ const handleVerification = (req: NextRequest) => {
   return redirect
 }
 
+const handleDashboard = (req: NextRequest) => {
+  const verification = handleToVerification(req)
+  if (verification) return verification
+
+  const login = handleToLogin(req)
+  if (login) {
+    login.cookies.delete(COOKIE.AuthTokenVerify)
+    login.cookies.delete(COOKIE.AuthToken)
+  }
+
+  return login
+}
+
+const handleLogin = (req: NextRequest) => {
+  const verification = handleToVerification(req)
+  if (verification) return verification
+
+  return handleToDashboard(req)
+}
+
 export function middleware(req: NextRequest) {
   switch (req.nextUrl.pathname) {
     case '/verification':
       return handleVerification(req)
+    case '/login':
+      return handleLogin(req)
+    case '/dashboard':
+      return handleDashboard(req)
   }
 }
 
 export const config = {
-  matcher: ['/verification'],
+  matcher: ['/verification', '/login', '/dashboard'],
 }

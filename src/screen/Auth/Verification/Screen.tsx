@@ -1,19 +1,11 @@
 import { SuccessResponse } from '@/@types'
 
+import VerificationBackButton from './BackButton'
+import VerificationScreenError from './Error'
 import DoneScreen from '../Done/Screen'
 import OtpScreen from '../Otp/Screen'
 import RegisterScreen from '../Register/Screen'
 import { AuthVerificationResponse, AuthVerificationStep } from '../types'
-
-interface VerificationScreenErrorProps {
-  message?: string
-}
-
-const VerificationScreenError: React.FC<VerificationScreenErrorProps> = ({
-  message,
-}) => {
-  return <h1>{message}</h1>
-}
 
 const VerificationScreen: React.FC<
   SuccessResponse<AuthVerificationResponse>
@@ -42,4 +34,5 @@ const VerificationScreen: React.FC<
 
 export default Object.assign(VerificationScreen, {
   Error: VerificationScreenError,
+  Back: VerificationBackButton,
 })

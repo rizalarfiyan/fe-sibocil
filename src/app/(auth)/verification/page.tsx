@@ -17,6 +17,7 @@ export default async function Verification() {
       title='Verification'
       description='Safeguarding your journey towards sustainability with seamless and trusted user authentication.'
     >
+      <VerificationScreen.Back />
       {res.code === 200 ? (
         <VerificationScreen {...res} />
       ) : (
