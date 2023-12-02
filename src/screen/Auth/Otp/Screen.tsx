@@ -40,7 +40,7 @@ interface OtpProps {
 
 const OtpScreen: React.FC<OtpProps> = (props) => {
   const { otp, setOtp, isDisable, isLoading, onResendOtp, onSubmitOtp } =
-    useOtp()
+    useOtp(props.phoneNumber)
 
   return (
     <div className='space-y-8'>

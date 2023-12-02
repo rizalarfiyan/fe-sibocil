@@ -1,3 +1,4 @@
+import { UseMutationOptions } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse, HttpStatusCode } from 'axios'
 
 export type BaseApiResponse<T> = {
@@ -27,3 +28,16 @@ export type ErrorResponse<V, E = BaseError<V>> = {
 export type BaseResponse<V, E> = Promise<
   SuccessResponse<V> | ErrorResponse<V, E>
 >
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExtractFnReturnType<FnType extends (...args: any) => any> = Awaited<
+  ReturnType<FnType>
+>
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type MutationOptions<MutationFnType extends (...args: any) => any> =
+  UseMutationOptions<
+    ExtractFnReturnType<MutationFnType>,
+    AxiosError,
+    Parameters<MutationFnType>[0]
+  >

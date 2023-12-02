@@ -32,6 +32,7 @@ export type AuthVerificationResponse =
 
 export type AuthSendOtpRequest = {
   phone_number: string
+  token?: string
 }
 
 export type AuthSendOtpResponse = {

@@ -6,10 +6,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { ErrorResponse } from '@/@types'
 import { API_BASE_URL, COOKIE } from '@/constants'
 
 import schema from './schema'
 import { sendOtp } from '../service'
+import { AuthSendOtpResponse } from '../types'
 
 const useLogin = () => {
   const router = useRouter()
@@ -28,9 +30,12 @@ const useLogin = () => {
       Cookies.set(COOKIE.AuthTokenVerify, data.token)
       router.replace('/verification')
     },
-    onError: (error) => {
-      //! update with toastr
-      console.log('onError: ', error.message)
+    onError: (error: ErrorResponse<AuthSendOtpResponse>) => {
+      //! FIXME TOAST
+      if (error?.data?.token) {
+        Cookies.set(COOKIE.AuthTokenVerify, error.data.token)
+        router.replace('/verification')
+      }
     },
   })
 
