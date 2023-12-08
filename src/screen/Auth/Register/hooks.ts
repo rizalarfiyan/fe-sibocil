@@ -1,3 +1,5 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
@@ -6,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { COOKIE } from '@/constants'
+import { useToast } from '@/hooks/useToast'
 
 import schema from './schema'
 import { RegisterProps } from './Screen'
@@ -13,6 +16,7 @@ import { register } from '../service'
 
 const useRegister = (props: RegisterProps) => {
   const router = useRouter()
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -32,6 +36,10 @@ const useRegister = (props: RegisterProps) => {
     onError: (error) => {
       //! update with toastr
       console.log('onError: ', error.message)
+      toast({
+        title: 'Opps. Something went wrong',
+        description: error.message,
+      })
     },
   })
 

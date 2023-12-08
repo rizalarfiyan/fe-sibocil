@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import '../styles/globals.css'
 
 import LoadingScreen from '@/components/LoadingScreen'
+import { ToastProvider } from '@/components/Toast'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 const poppins = Poppins({
@@ -28,6 +29,7 @@ export default function RootLayout({
         <Suspense fallback={<LoadingScreen reason='Loading...' />}>
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </Suspense>
+        <ToastProvider />
       </body>
     </html>
   )
