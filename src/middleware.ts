@@ -2,17 +2,17 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 import { COOKIE } from './constants'
-import { isLoggedIn } from './utils/auth'
+import { isLoggedInMiddleware } from './utils/auth'
 
 const handleToDashboard = (req: NextRequest) => {
-  const cookieAuth = isLoggedIn(req)
+  const cookieAuth = isLoggedInMiddleware(req)
   if (cookieAuth) {
     return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 }
 
 const handleToLogin = (req: NextRequest) => {
-  const cookieAuth = isLoggedIn(req)
+  const cookieAuth = isLoggedInMiddleware(req)
   if (!cookieAuth) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
@@ -71,11 +71,13 @@ export function middleware(req: NextRequest) {
       return handleVerification(req)
     case '/login':
       return handleLogin(req)
-    case '/dashboard':
-      return handleDashboard(req)
+  }
+
+  if (req.nextUrl.pathname.startsWith('/dashboard')) {
+    return handleDashboard(req)
   }
 }
 
 export const config = {
-  matcher: ['/verification', '/login', '/dashboard'],
+  matcher: ['/verification', '/login', '/dashboard/:path*'],
 }

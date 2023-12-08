@@ -1,14 +1,24 @@
+import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
 import { COOKIE } from '@/constants'
 
-export const isLoggedIn = (req: NextRequest): boolean => {
-  const cookieAuth = req.cookies.get(COOKIE.AuthToken)?.value
-  if (cookieAuth) {
-    return !isTokenExpired(cookieAuth)
+const baseIsLoggedIn = (token?: string): boolean => {
+  if (token) {
+    return !isTokenExpired(token)
   }
 
   return false
+}
+
+export const isLoggedInMiddleware = (req: NextRequest): boolean => {
+  const cookieAuth = req.cookies.get(COOKIE.AuthToken)?.value
+  return baseIsLoggedIn(cookieAuth)
+}
+
+export const isLoggedIn = (): boolean => {
+  const cookieAuth = cookies().get(COOKIE.AuthToken)?.value
+  return baseIsLoggedIn(cookieAuth)
 }
 
 function isTokenExpired(token: string) {
