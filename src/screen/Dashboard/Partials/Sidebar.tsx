@@ -50,7 +50,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
           </Typography>
         </div>
       </Link>
-      <div className='w-full space-y-2 px-3'>
+      <div className='w-full space-y-2 px-8'>
         {sidebar.map((item, idx) => {
           switch (item.type) {
             case 'item':
