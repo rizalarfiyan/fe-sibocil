@@ -1,3 +1,5 @@
+'use client'
+
 import Toast from './Toast'
 import ToastAction from './ToastAction'
 import ToastClose from './ToastClose'

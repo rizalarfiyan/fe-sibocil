@@ -8,6 +8,7 @@ import { z } from 'zod'
 
 import { ErrorResponse } from '@/@types'
 import { API_BASE_URL, COOKIE } from '@/constants'
+import { useToast } from '@/hooks/useToast'
 
 import schema from './schema'
 import { sendOtp } from '../service'
@@ -15,6 +16,7 @@ import { AuthSendOtpResponse } from '../types'
 
 const useLogin = () => {
   const router = useRouter()
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -31,11 +33,17 @@ const useLogin = () => {
       router.replace('/verification')
     },
     onError: (error: ErrorResponse<AuthSendOtpResponse>) => {
-      //! FIXME TOAST
       if (error?.data?.token) {
         Cookies.set(COOKIE.AuthTokenVerify, error.data.token)
         router.replace('/verification')
+        return
       }
+
+      toast({
+        title: 'Error!',
+        description: error.message,
+        variant: 'destructive',
+      })
     },
   })
 

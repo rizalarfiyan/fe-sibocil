@@ -34,11 +34,10 @@ const useRegister = (props: RegisterProps) => {
       router.refresh()
     },
     onError: (error) => {
-      //! update with toastr
-      console.log('onError: ', error.message)
       toast({
-        title: 'Opps. Something went wrong',
+        title: 'Error!',
         description: error.message,
+        variant: 'destructive',
       })
     },
   })

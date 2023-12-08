@@ -4,12 +4,14 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { COOKIE } from '@/constants'
+import { useToast } from '@/hooks/useToast'
 
 import { sendOtp, verificationOtp } from '../service'
 
 const useOtp = (phoneNumber: string) => {
   const [otp, setOtp] = useState('')
   const router = useRouter()
+  const { toast } = useToast()
 
   const apiResendOtp = useMutation({
     mutationFn: sendOtp,
@@ -17,8 +19,11 @@ const useOtp = (phoneNumber: string) => {
       router.replace('/verification')
     },
     onError: (error) => {
-      //! update with toastr
-      console.log('onError: ', error.message)
+      toast({
+        title: 'Error!',
+        description: error.message,
+        variant: 'destructive',
+      })
     },
   })
   const onResendOtp = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -42,8 +47,11 @@ const useOtp = (phoneNumber: string) => {
       router.replace('/dashboard')
     },
     onError: (error) => {
-      //! update with toastr
-      console.log('onError: ', error.message)
+      toast({
+        title: 'Error!',
+        description: error.message,
+        variant: 'destructive',
+      })
     },
   })
 
