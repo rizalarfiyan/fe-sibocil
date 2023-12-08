@@ -5,7 +5,7 @@ export default function Login() {
   return (
     <Base
       title='Login'
-      description='Your gateway to a sustainable future, where recycling meets innovation in the palm of your hand.'
+      description='Securely access your revend dashboard by entering your login credentials.'
       hasBack
     >
       <LoginScreen />

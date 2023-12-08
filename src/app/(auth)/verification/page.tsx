@@ -4,6 +4,7 @@ import { COOKIE } from '@/constants'
 import Base from '@/screen/Auth/Base'
 import { verification } from '@/screen/Auth/service'
 import VerificationScreen from '@/screen/Auth/Verification/Screen'
+import { getTitleDescription } from '@/screen/Auth/Verification/utils'
 
 export default async function Verification() {
   const token = cookies().get(COOKIE.AuthTokenVerify)?.value
@@ -12,13 +13,10 @@ export default async function Verification() {
   })
 
   console.log(res)
+  const { title, description } = getTitleDescription(res?.data?.step || 0)
 
-  //! Change title
   return (
-    <Base
-      title='Verification'
-      description='Safeguarding your journey towards sustainability with seamless and trusted user authentication.'
-    >
+    <Base title={title} description={description}>
       <VerificationScreen.Back />
       {res.code === 200 ? (
         <VerificationScreen {...res} />
