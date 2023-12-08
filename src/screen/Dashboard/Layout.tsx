@@ -1,11 +1,12 @@
-import Sidebar, { SidebarData } from './Partials/Sidebar'
+import { Menu } from 'lucide-react'
 
-interface LayoutProps extends React.PropsWithChildren {
-  sidebar: SidebarData[]
-}
+import Button from '@/components/Button'
 
-const Layout: React.FC<LayoutProps> = (props) => {
-  const { sidebar, children } = props
+import Sidebar from './Partials/Sidebar'
+import SidebarMobile from './Partials/SidebarMobile'
+
+const Layout: React.FC<React.PropsWithChildren> = (props) => {
+  const { children } = props
 
   const role = 'admin'
 
@@ -13,11 +14,23 @@ const Layout: React.FC<LayoutProps> = (props) => {
     <>
       <Sidebar
         userRole={role}
-        sidebar={sidebar}
-        className='fixed z-[51] hidden h-full min-h-screen w-80 border-r border-secondary-200 bg-white lg:block'
+        className='fixed z-[50] hidden h-full min-h-screen w-80 border-r border-secondary-200 bg-white lg:block'
       />
-      <header className='fixed top-0 z-50 w-full border border-secondary-200 bg-white'>
+      <header className='fixed top-0 z-[49] w-full border border-secondary-200 bg-white'>
         <div className='ml-0 flex h-16 items-center justify-between p-3 lg:ml-64 lg:justify-end'>
+          <SidebarMobile
+            userRole={role}
+            trigger={
+              <Button
+                variant='outline'
+                size='icon'
+                state='secondary'
+                className='inline-flex lg:hidden'
+              >
+                <Menu className='h-5 w-5' />
+              </Button>
+            }
+          />
           <div>User info</div>
         </div>
       </header>

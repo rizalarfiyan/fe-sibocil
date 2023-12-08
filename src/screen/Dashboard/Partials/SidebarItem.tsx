@@ -11,7 +11,7 @@ const SidebarItem: React.FC<ItemSidebarRole> = (props) => {
   if (!hasRole(role, roles)) return
 
   if (href === 'logout') {
-    return <SidebarItemLogout icon={icon}>{title}</SidebarItemLogout>
+    return <SidebarItemLogout>{title}</SidebarItemLogout>
   }
 
   return (

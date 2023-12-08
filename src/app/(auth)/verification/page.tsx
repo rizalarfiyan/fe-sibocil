@@ -12,7 +12,6 @@ export default async function Verification() {
     token: token || '',
   })
 
-  console.log(res)
   const { title, description } = getTitleDescription(res?.data?.step || 0)
 
   return (

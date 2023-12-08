@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import { AuthRole } from '@/@types'
 import Typography from '@/components/Typography'
+import { SIDEBAR } from '@/constants'
 
 import SidebarDevide from './SidebarDevide'
 import SidebarItem from './SidebarItem'
@@ -31,13 +32,12 @@ export type DevideSidebarRole = DevideSidebar & SidebarWithRole
 
 export type SidebarData = ItemSidebar | DevideSidebar
 
-interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
-  sidebar: SidebarData[]
+export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
   userRole: AuthRole
 }
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
-  const { sidebar, userRole, className, ...rest } = props
+  const { userRole, className, ...rest } = props
   return (
     <div ref={ref} className={className} {...rest}>
       <Link
@@ -50,8 +50,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
           </Typography>
         </div>
       </Link>
-      <div className='w-full space-y-2 px-8'>
-        {sidebar.map((item, idx) => {
+      <div className='w-full space-y-2 px-3 sm:px-4 md:px-8'>
+        {SIDEBAR.map((item, idx) => {
           switch (item.type) {
             case 'item':
               return <SidebarItem key={idx} role={userRole} {...item} />

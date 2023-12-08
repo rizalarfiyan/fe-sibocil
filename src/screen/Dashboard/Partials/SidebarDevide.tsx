@@ -11,7 +11,7 @@ const SidebarDevide: React.FC<DevideSidebarRole> = (props) => {
   if (!hasRoleNested(role, items)) return
 
   return (
-    <div className='pt-3'>
+    <div className='pt-1 sm:pt-3'>
       <HorizontalLine lineHeight={1} rightOnly className='py-0 pb-2'>
         <Typography as='span' variant='small' className='text-secondary-400'>
           {title}

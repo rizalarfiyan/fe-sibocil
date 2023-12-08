@@ -1,7 +1,6 @@
 import { AuthVerificationStep } from '../types'
 
 export const getTitleDescription = (step: AuthVerificationStep) => {
-  console.log('step', step)
   switch (step) {
     case AuthVerificationStep.Register:
       return {
