@@ -1,7 +1,5 @@
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return <div className='flex justify-center'>{children}</div>
+import Layout from '@/screen/Dashboard/Layout'
+
+export default function DashboardLayout({ children }: React.PropsWithChildren) {
+  return <Layout>{children}</Layout>
 }
