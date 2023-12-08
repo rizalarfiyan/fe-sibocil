@@ -4,6 +4,8 @@ import { Suspense } from 'react'
 
 import '../styles/globals.css'
 
+import { cn } from '@/utils/classes'
+
 import LoadingScreen from '@/components/LoadingScreen'
 import { ToastProvider } from '@/components/Toast'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
@@ -21,7 +23,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang='en'>
-      <body className={poppins.className}>
+      <body
+        className={cn(
+          poppins.className,
+          'scroll-smooth bg-secondary-50 antialiased',
+        )}
+      >
         <Suspense fallback={<LoadingScreen reason='Loading...' />}>
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </Suspense>

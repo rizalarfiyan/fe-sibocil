@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
+import { AuthToken } from '@/@types'
 import { COOKIE } from '@/constants'
 
 const baseIsLoggedIn = (token?: string): boolean => {
@@ -21,17 +22,25 @@ export const isLoggedIn = (): boolean => {
   return baseIsLoggedIn(cookieAuth)
 }
 
-function isTokenExpired(token: string) {
-  const base64Url = token.split('.')[1]
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-  const decodedToken = JSON.parse(
-    Buffer.from(base64, 'base64').toString('utf-8'),
-  )
+export const extractToken = (token: string): AuthToken | undefined => {
+  try {
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    const decodedToken = JSON.parse(
+      Buffer.from(base64, 'base64').toString('utf-8'),
+    )
+    return decodedToken
+  } catch (error) {
+    return
+  }
+}
 
-  if (decodedToken.exp) {
-    const currentTime = Math.floor(Date.now() / 1000)
-    return decodedToken.exp < currentTime
+export const isTokenExpired = (token: string) => {
+  const decodedToken = extractToken(token)
+  if (!decodedToken) {
+    return false
   }
 
-  return false
+  const currentTime = Math.floor(Date.now() / 1000)
+  return decodedToken.exp < currentTime
 }

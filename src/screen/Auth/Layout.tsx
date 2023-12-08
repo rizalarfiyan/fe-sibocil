@@ -2,7 +2,7 @@ import AuthGraphic from '@/assets/graphics/auth.svg'
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center bg-white'>
       <div className='hidden h-full min-h-screen flex-1 bg-secondary-100 md:flex'>
         <AuthGraphic className='mx-auto hidden w-full max-w-3xl lg:block' />
       </div>

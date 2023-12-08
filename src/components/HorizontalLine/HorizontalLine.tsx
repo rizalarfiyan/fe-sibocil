@@ -26,18 +26,43 @@ const OnlyHorizontalLine: React.FC<OnlyHorizontalLineProps> = ({
 
 const HorizontalLine = React.forwardRef<HTMLDivElement, HorizontalLineProps>(
   (props, ref) => {
-    const { className, title, lineHeight, lineClassName, children, ...rest } =
-      props
+    const {
+      className,
+      title,
+      lineHeight,
+      lineClassName,
+      rightOnly,
+      leftOnly,
+      children,
+      ...rest
+    } = props
+
     const content = title || children
+    if (rightOnly && leftOnly) return
+    const isAll = !rightOnly && !leftOnly
+
     return (
       <div
         ref={ref}
         className={cn('relative flex items-center py-5 text-center', className)}
         {...rest}
       >
-        <OnlyHorizontalLine {...{ lineHeight, lineClassName }} />
-        <div className='flex-shrink px-4'>{content}</div>
-        <OnlyHorizontalLine {...{ lineHeight, lineClassName }} />
+        {(isAll || leftOnly) && (
+          <OnlyHorizontalLine {...{ lineHeight, lineClassName }} />
+        )}
+        <div
+          className={cn(
+            'flex-shrink',
+            isAll && 'px-3',
+            rightOnly && 'pr-3',
+            leftOnly && 'pl-3',
+          )}
+        >
+          {content}
+        </div>
+        {(isAll || rightOnly) && (
+          <OnlyHorizontalLine {...{ lineHeight, lineClassName }} />
+        )}
       </div>
     )
   },
