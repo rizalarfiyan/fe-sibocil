@@ -1,3 +1,5 @@
+'use client'
+
 import HorizontalLine from '@/components/HorizontalLine'
 import Typography from '@/components/Typography'
 

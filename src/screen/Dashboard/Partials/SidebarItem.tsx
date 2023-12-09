@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { ItemSidebarRole } from './Sidebar'
 import SidebarItemButton from './SidebarItemButton'
@@ -7,6 +10,7 @@ import { hasRole } from './utils'
 
 const SidebarItem: React.FC<ItemSidebarRole> = (props) => {
   const { href, title, icon, role, roles } = props
+  const currentPage = usePathname()
 
   if (!hasRole(role, roles)) return
 
@@ -14,8 +18,9 @@ const SidebarItem: React.FC<ItemSidebarRole> = (props) => {
     return <SidebarItemLogout>{title}</SidebarItemLogout>
   }
 
+  const isActive = currentPage === href
   return (
-    <SidebarItemButton icon={icon}>
+    <SidebarItemButton icon={icon} isActive={isActive}>
       <Link href={href}>{title}</Link>
     </SidebarItemButton>
   )

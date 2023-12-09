@@ -1,3 +1,5 @@
+'use client'
+
 import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import * as React from 'react'
@@ -38,6 +40,7 @@ export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
   const { userRole, className, ...rest } = props
+
   return (
     <div ref={ref} className={className} {...rest}>
       <Link
