@@ -25,7 +25,7 @@ const Layout: React.FC<React.PropsWithChildren> = (props) => {
                 variant='outline'
                 size='icon'
                 state='secondary'
-                className='inline-flex lg:hidden'
+                className='inline-flex border-secondary-300 lg:hidden'
               >
                 <Menu className='h-5 w-5' />
               </Button>

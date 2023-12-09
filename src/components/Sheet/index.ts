@@ -2,12 +2,22 @@ import { Close, Portal, Root, Trigger } from '@radix-ui/react-dialog'
 
 import SheetContent from './SheetContent'
 import SheetOverlay from './SheetOverlay'
+export * from './Sheet.styles'
+export * from './Sheet.types'
 
-export const Sheet = Root
-export const SheetTrigger = Trigger
-export const SheetClose = Close
-export const SheetPortal = Portal
-export { SheetContent, SheetOverlay }
+const Sheet = Root
+const SheetTrigger = Trigger
+const SheetClose = Close
+const SheetPortal = Portal
+
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetOverlay,
+  SheetPortal,
+  SheetTrigger,
+}
 
 export default Object.assign(Sheet, {
   Trigger: SheetTrigger,
