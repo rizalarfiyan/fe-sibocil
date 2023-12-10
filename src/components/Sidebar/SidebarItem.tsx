@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { ItemSidebarRole } from './Sidebar'
+import { hasRole } from '@/utils/components'
+
+import { ItemSidebarRole } from './Sidebar.types'
 import SidebarItemButton from './SidebarItemButton'
 import SidebarItemLogout from './SidebarItemLogout'
-import { hasRole } from './utils'
 
 const SidebarItem: React.FC<ItemSidebarRole> = (props) => {
   const { href, title, icon, role, roles } = props

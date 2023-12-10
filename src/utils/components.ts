@@ -1,6 +1,5 @@
 import { AuthRole } from '@/@types'
-
-import { ItemSidebar } from './Sidebar'
+import { ItemSidebar } from '@/components/Sidebar'
 
 export const hasRole = (role: AuthRole, roles?: AuthRole[]) => {
   if (typeof roles === 'undefined') return true

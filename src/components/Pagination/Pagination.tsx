@@ -1,3 +1,5 @@
+'use client'
+
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { nanoid } from 'nanoid'
 import { forwardRef } from 'react'

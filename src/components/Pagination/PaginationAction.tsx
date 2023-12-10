@@ -1,3 +1,5 @@
+'use client'
+
 import { PaginationActionProps } from './Pagination.types'
 import PaginationButton from './PaginationButton'
 

@@ -1,3 +1,5 @@
+'use client'
+
 import { Overlay } from '@radix-ui/react-dialog'
 import { forwardRef } from 'react'
 

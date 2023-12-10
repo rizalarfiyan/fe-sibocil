@@ -1,42 +1,14 @@
 'use client'
 
-import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import * as React from 'react'
 
-import { AuthRole } from '@/@types'
 import Typography from '@/components/Typography'
 import { SIDEBAR } from '@/constants'
 
+import { SidebarProps } from './Sidebar.types'
 import SidebarDevide from './SidebarDevide'
 import SidebarItem from './SidebarItem'
-
-export type ItemSidebar = {
-  type: 'item'
-  title: string
-  href: string
-  icon?: LucideIcon
-  roles?: AuthRole[]
-}
-
-export type DevideSidebar = {
-  type: 'devide'
-  title: string
-  items: ItemSidebar[]
-}
-
-type SidebarWithRole = {
-  role: AuthRole
-}
-
-export type ItemSidebarRole = ItemSidebar & SidebarWithRole
-export type DevideSidebarRole = DevideSidebar & SidebarWithRole
-
-export type SidebarData = ItemSidebar | DevideSidebar
-
-export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
-  userRole: AuthRole
-}
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
   const { userRole, className, ...rest } = props

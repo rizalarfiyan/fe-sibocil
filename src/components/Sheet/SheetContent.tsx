@@ -1,3 +1,5 @@
+'use client'
+
 import { Close, Content } from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 import { forwardRef } from 'react'

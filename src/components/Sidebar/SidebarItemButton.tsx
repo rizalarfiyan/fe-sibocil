@@ -2,14 +2,7 @@ import { cn } from '@/utils/classes'
 
 import Button from '@/components/Button'
 
-import { ItemSidebarRole } from './Sidebar'
-
-export interface SidebarItemButtonProps
-  extends Pick<ItemSidebarRole, 'icon'>,
-    React.PropsWithChildren {
-  isActive?: boolean
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
+import { SidebarItemButtonProps } from './Sidebar.types'
 
 const SidebarItemButton: React.FC<SidebarItemButtonProps> = (props) => {
   const { icon: Icon, onClick, isActive, children } = props

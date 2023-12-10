@@ -1,11 +1,12 @@
 'use client'
 
+import { hasRoleNested } from '@/utils/components'
+
 import HorizontalLine from '@/components/HorizontalLine'
 import Typography from '@/components/Typography'
 
-import { DevideSidebarRole } from './Sidebar'
+import { DevideSidebarRole } from './Sidebar.types'
 import SidebarItem from './SidebarItem'
-import { hasRoleNested } from './utils'
 
 const SidebarDevide: React.FC<DevideSidebarRole> = (props) => {
   const { items, role, title } = props

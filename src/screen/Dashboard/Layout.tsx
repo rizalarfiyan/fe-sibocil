@@ -1,9 +1,7 @@
 import { Menu } from 'lucide-react'
 
 import Button from '@/components/Button'
-
-import Sidebar from './Partials/Sidebar'
-import SidebarMobile from './Partials/SidebarMobile'
+import Sidebar from '@/components/Sidebar'
 
 const Layout: React.FC<React.PropsWithChildren> = (props) => {
   const { children } = props
@@ -18,7 +16,7 @@ const Layout: React.FC<React.PropsWithChildren> = (props) => {
       />
       <header className='fixed top-0 z-[49] w-full border border-secondary-200 bg-white'>
         <div className='ml-0 flex h-16 items-center justify-between p-3 lg:ml-64 lg:justify-end'>
-          <SidebarMobile
+          <Sidebar.Mobile
             userRole={role}
             trigger={
               <Button

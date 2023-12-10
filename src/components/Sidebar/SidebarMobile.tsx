@@ -2,11 +2,8 @@
 
 import Sheet from '@/components/Sheet'
 
-import Sidebar, { SidebarProps } from './Sidebar'
-
-type SidebarMobileProps = Pick<SidebarProps, 'className' | 'userRole'> & {
-  trigger: React.ReactNode
-}
+import Sidebar from './Sidebar'
+import { SidebarMobileProps } from './Sidebar.types'
 
 const SidebarMobile: React.FC<SidebarMobileProps> = (props) => {
   const { className, userRole, trigger } = props
