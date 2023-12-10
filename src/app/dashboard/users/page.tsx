@@ -1,9 +1,5 @@
-import Typography from '@/components/Typography'
+import UserScreen from '@/screen/Dashboard/User/Screen'
 
 export default function Users() {
-  return (
-    <Typography variant='h1' as='h1'>
-      Users
-    </Typography>
-  )
+  return <UserScreen />
 }

@@ -16,3 +16,13 @@ export interface AuthToken {
   nbf: number
   iat: number
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type QueryParams<T = any> = {
+  [key: string]: T
+}
+
+export type QuerySorting = {
+  order: 'asc' | 'desc'
+  order_by: string
+}

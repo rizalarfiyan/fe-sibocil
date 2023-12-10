@@ -7,6 +7,17 @@ export type BaseApiResponse<T> = {
   data: T
 }
 
+export interface BaseApisMetadata {
+  total: number
+  page: number
+  per_page: number
+}
+
+export type BaseResponseList<T> = {
+  content: T[]
+  metadata: BaseApisMetadata
+}
+
 export type BaseSuccess<T> = AxiosResponse<BaseApiResponse<T>>
 export type BaseError<T> = AxiosError<BaseApiResponse<T>>
 
