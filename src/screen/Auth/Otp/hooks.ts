@@ -55,7 +55,7 @@ const useOtp = (phoneNumber: string) => {
     },
   })
 
-  const onSubmitOtp = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmitOtp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const token = Cookies.get(COOKIE.AuthTokenVerify)
     if (!token) {
