@@ -1,9 +1,5 @@
-import Typography from '@/components/Typography'
+import HistoryScreen from '@/screen/Dashboard/History/Screen'
 
 export default function History() {
-  return (
-    <Typography variant='h1' as='h1'>
-      History
-    </Typography>
-  )
+  return <HistoryScreen />
 }
