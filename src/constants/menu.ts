@@ -1,6 +1,6 @@
 import { Cpu, History, LayoutDashboard, User, Users } from 'lucide-react'
 
-import { SidebarData } from '@/screen/Dashboard/Partials/Sidebar'
+import { SidebarData } from '@/components/Sidebar'
 
 const SIDEBAR: SidebarData[] = [
   {

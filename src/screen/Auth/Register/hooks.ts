@@ -7,12 +7,14 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { ErrorResponse } from '@/@types'
 import { COOKIE } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 
 import schema from './schema'
 import { RegisterProps } from './Screen'
 import { register } from '../service'
+import { AuthRegisterResponse } from '../types'
 
 const useRegister = (props: RegisterProps) => {
   const router = useRouter()
@@ -33,7 +35,16 @@ const useRegister = (props: RegisterProps) => {
     onSuccess: () => {
       router.refresh()
     },
-    onError: (error) => {
+    onError: (error: ErrorResponse<AuthRegisterResponse>) => {
+      if (error.code === 400) {
+        Object.entries(error.data).forEach(([key, value]) => {
+          form.setError(key as keyof z.infer<typeof schema>, {
+            message: value as string,
+          })
+        })
+        return
+      }
+
       toast({
         title: 'Error!',
         description: error.message,

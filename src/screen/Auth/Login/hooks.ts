@@ -39,6 +39,15 @@ const useLogin = () => {
         return
       }
 
+      if (error.code === 400) {
+        Object.entries(error.data).forEach(([key, value]) => {
+          form.setError(key as keyof z.infer<typeof schema>, {
+            message: value as string,
+          })
+        })
+        return
+      }
+
       toast({
         title: 'Error!',
         description: error.message,
