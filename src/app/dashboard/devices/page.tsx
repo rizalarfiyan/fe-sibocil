@@ -1,9 +1,5 @@
-import Typography from '@/components/Typography'
+import DeviceScreen from '@/screen/Dashboard/Device/Screen'
 
 export default function Devices() {
-  return (
-    <Typography variant='h1' as='h1'>
-      Devices
-    </Typography>
-  )
+  return <DeviceScreen />
 }

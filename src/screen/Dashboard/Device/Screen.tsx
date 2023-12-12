@@ -16,33 +16,23 @@ import { getAll } from './service'
 
 const columns: DataTableColumn = [
   {
-    accessorKey: 'first_name',
-    header: 'First Name',
+    accessorKey: 'token',
+    header: 'Token',
     enableSorting: true,
   },
   {
-    accessorKey: 'last_name',
-    header: 'Last Name',
+    accessorKey: 'name',
+    header: 'Name',
     enableSorting: true,
   },
   {
-    accessorKey: 'identity',
-    header: 'Identity',
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'phone_number',
-    header: 'Phone Number',
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'role',
-    header: 'Role',
+    accessorKey: 'location',
+    header: 'Location',
     enableSorting: true,
   },
 ]
 
-const UserScreen: React.FC = () => {
+const DeviceScreen: React.FC = () => {
   const tableRef = useRef<DataTableHandle>(null)
   const [search, setSearch] = useState('')
   const searchDebounce = useDebounce(search, 400)
@@ -54,7 +44,7 @@ const UserScreen: React.FC = () => {
   return (
     <div className='space-y-5'>
       <Typography variant='h2' as='h1'>
-        List of Users
+        List of Devices
       </Typography>
       <div className='flex flex-row items-center justify-between gap-2'>
         <Input
@@ -65,7 +55,9 @@ const UserScreen: React.FC = () => {
           rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
           className='max-w-sm'
         />
-        <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>Add User</Button>
+        <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
+          Add Device
+        </Button>
       </div>
       <DataTable
         tableRef={tableRef}
@@ -80,4 +72,4 @@ const UserScreen: React.FC = () => {
   )
 }
 
-export default UserScreen
+export default DeviceScreen

@@ -4,11 +4,11 @@ import { BaseResponseList } from '@/@types'
 import { BaseRequestPayload } from '@/@types/request'
 import axios from '@/libs/axios'
 
-import { UserResponse } from './types'
+import { DeviceResponse } from './types'
 
 const getAll = requestHandler<
   BaseRequestPayload,
-  BaseResponseList<UserResponse>
->((params) => axios.get('/user', { params }))
+  BaseResponseList<DeviceResponse>
+>((params) => axios.get('/device', { params }))
 
 export { getAll }
