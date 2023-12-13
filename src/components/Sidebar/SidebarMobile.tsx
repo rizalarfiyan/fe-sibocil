@@ -5,9 +5,10 @@ import Sheet from '@/components/Sheet'
 import Sidebar from './Sidebar'
 import { SidebarMobileProps } from './Sidebar.types'
 
-const SidebarMobile: React.FC<SidebarMobileProps> = (props) => {
-  const { className, userRole, trigger } = props
-
+const SidebarMobile: React.FC<SidebarMobileProps> = ({
+  className,
+  trigger,
+}) => {
   return (
     <Sheet>
       <Sheet.Trigger asChild>{trigger}</Sheet.Trigger>
@@ -15,7 +16,7 @@ const SidebarMobile: React.FC<SidebarMobileProps> = (props) => {
         side='left'
         className='w-full max-w-[20rem] p-0 sm:max-w-[20rem]'
       >
-        <Sidebar userRole={userRole} className={className} />
+        <Sidebar className={className} />
       </Sheet.Content>
     </Sheet>
   )

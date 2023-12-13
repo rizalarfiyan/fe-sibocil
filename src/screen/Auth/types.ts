@@ -1,3 +1,12 @@
+import { AuthRole } from '@/@types'
+
+export type AuthMeResponse = {
+  first_name: string
+  last_name: string
+  phone_number: string
+  role: AuthRole
+}
+
 export enum AuthVerificationStep {
   Register = 1,
   Otp = 2,

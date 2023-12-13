@@ -25,10 +25,6 @@ export type DevideSidebarRole = DevideSidebar & SidebarWithRole
 
 export type SidebarData = ItemSidebar | DevideSidebar
 
-export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
-  userRole: AuthRole
-}
-
 export interface SidebarItemButtonProps
   extends Pick<ItemSidebarRole, 'icon'>,
     React.PropsWithChildren {
@@ -36,9 +32,7 @@ export interface SidebarItemButtonProps
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export type SidebarMobileProps = Pick<
-  SidebarProps,
-  'className' | 'userRole'
-> & {
+export type SidebarMobileProps = {
+  className?: string
   trigger: React.ReactNode
 }

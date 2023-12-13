@@ -1,8 +1,10 @@
 import { requestHandler, saveRequestHandler } from '@/utils/request'
 
+import { RequestWithHeaderAuth } from '@/@types/request'
 import axios from '@/libs/axios'
 
 import {
+  AuthMeResponse,
   AuthRegisterRequest,
   AuthRegisterResponse,
   AuthSendOtpRequest,
@@ -11,6 +13,10 @@ import {
   AuthVerificationRequest,
   AuthVerificationResponse,
 } from './types'
+
+const me = requestHandler<RequestWithHeaderAuth, AuthMeResponse>((params) =>
+  axios.get('/auth/me', { ...params }),
+)
 
 const verification = saveRequestHandler<
   AuthVerificationRequest,
@@ -30,4 +36,4 @@ const register = requestHandler<AuthRegisterRequest, AuthRegisterResponse>(
   (params) => axios.post('/auth/register', { ...params }),
 )
 
-export { register, sendOtp, verification, verificationOtp }
+export { me, register, sendOtp, verification, verificationOtp }

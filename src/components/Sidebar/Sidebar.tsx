@@ -5,16 +5,19 @@ import * as React from 'react'
 
 import Typography from '@/components/Typography'
 import { SIDEBAR } from '@/constants'
+import useDashboard from '@/screen/Dashboard/hooks'
 
-import { SidebarProps } from './Sidebar.types'
 import SidebarDevide from './SidebarDevide'
 import SidebarItem from './SidebarItem'
 
-const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
-  const { userRole, className, ...rest } = props
+const Sidebar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLProps<HTMLDivElement>
+>((props, ref) => {
+  const { user } = useDashboard()
 
   return (
-    <div ref={ref} className={className} {...rest}>
+    <div ref={ref} {...props}>
       <Link
         href='/'
         className='mb-4 flex border-b border-secondary-200 p-1 text-center'
@@ -29,9 +32,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>((props, ref) => {
         {SIDEBAR.map((item, idx) => {
           switch (item.type) {
             case 'item':
-              return <SidebarItem key={idx} role={userRole} {...item} />
+              return <SidebarItem key={idx} role={user.role} {...item} />
             case 'devide':
-              return <SidebarDevide key={idx} role={userRole} {...item} />
+              return <SidebarDevide key={idx} role={user.role} {...item} />
             default:
               return
           }

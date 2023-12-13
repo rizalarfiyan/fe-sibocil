@@ -3,3 +3,9 @@ export interface BaseRequestPayload {
   limit?: number
   page?: number
 }
+
+export interface RequestWithHeaderAuth {
+  headers: {
+    Authorization: string
+  }
+}

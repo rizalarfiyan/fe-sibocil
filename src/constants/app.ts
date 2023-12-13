@@ -6,4 +6,8 @@ const COOKIE = {
   AuthToken: 'auth',
 }
 
-export { API_BASE_URL, APP_NAME, COOKIE }
+const QUERY_KEY = {
+  Me: 'auth-me',
+}
+
+export { API_BASE_URL, APP_NAME, COOKIE, QUERY_KEY }
