@@ -1,7 +1,7 @@
 import { requestHandler } from '@/utils/request'
 
 import { BaseResponseList } from '@/@types'
-import { BaseRequestPayload } from '@/@types/request'
+import { BaseRequestPayload } from '@/@types'
 import axios from '@/libs/axios'
 
 import { HistoryResponse } from './types'

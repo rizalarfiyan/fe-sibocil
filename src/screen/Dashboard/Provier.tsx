@@ -61,7 +61,6 @@ const DashboardProvier: React.FC<React.PropsWithChildren> = ({ children }) => {
       logout()
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`
-    console.log(axios)
   }, [state.token])
 
   if (isSuccess && state.user) {

@@ -1,4 +1,4 @@
-import { AuthRole } from '@/@types'
+import { AuthRole, SelectValue } from '@/@types'
 import { ItemSidebar } from '@/components/Sidebar'
 
 export const hasRole = (role: AuthRole, roles?: AuthRole[]) => {
@@ -11,4 +11,9 @@ export const hasRoleNested = (role: AuthRole, items: ItemSidebar[]) => {
     if (hasRole(role, child?.roles)) return true
   }
   return false
+}
+
+export const emptySelectValue = (value?: SelectValue): SelectValue | null => {
+  if (!value || (value.value === '' && value.label === '')) return null
+  return value
 }

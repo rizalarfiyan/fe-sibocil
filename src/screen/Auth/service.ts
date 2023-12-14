@@ -1,6 +1,6 @@
 import { requestHandler, saveRequestHandler } from '@/utils/request'
 
-import { RequestWithHeaderAuth } from '@/@types/request'
+import { RequestWithHeaderAuth } from '@/@types'
 import axios from '@/libs/axios'
 
 import {

@@ -1,21 +1,22 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { OnChangeValue } from 'react-select'
 
 import { getFullName } from '@/utils/user'
 
-import Button from '@/components/Button'
-import DataTable, {
-  DataTableColumn,
-  DataTableHandle,
-} from '@/components/DataTable'
+import { SelectValue } from '@/@types'
+import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Input from '@/components/Input'
+import Select from '@/components/Select'
 import Typography from '@/components/Typography'
-import useDebounce from '@/hooks/useDebounce'
+import { AUTH_ROLE } from '@/constants'
 
+import useDashboardHistory from './hook'
 import { getAll } from './service'
 import { HistoryResponse } from './types'
+import { getAllDropdown as getAllDropdownDevice } from '../Device/service'
+import { getAllDropdown as getAllDropdownUser } from '../User/service'
 
 const columns: DataTableColumn = [
   {
@@ -43,13 +44,15 @@ const columns: DataTableColumn = [
 ]
 
 const HistoryScreen: React.FC = () => {
-  const tableRef = useRef<DataTableHandle>(null)
-  const [search, setSearch] = useState('')
-  const searchDebounce = useDebounce(search, 400)
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    setSearch(event.target.value)
-  }
+  const {
+    role,
+    tableRef,
+    search,
+    filter,
+    setFilter,
+    searchDebounce,
+    handleSearch,
+  } = useDashboardHistory()
 
   return (
     <div className='space-y-5'>
@@ -65,7 +68,34 @@ const HistoryScreen: React.FC = () => {
           rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
           className='max-w-sm'
         />
-        <Button>Action Here</Button>
+        <div className='flex w-full justify-end gap-2'>
+          {role === AUTH_ROLE.admin && (
+            <Select.Pagination
+              className='max-w-[220px]'
+              value={filter.user}
+              apiController={getAllDropdownUser}
+              isClearable
+              onChange={(val: OnChangeValue<unknown, false>) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  user: val as SelectValue,
+                }))
+              }}
+            />
+          )}
+          <Select.Pagination
+            className='max-w-[220px]'
+            value={filter.device}
+            apiController={getAllDropdownDevice}
+            isClearable
+            onChange={(val: OnChangeValue<unknown, false>) => {
+              setFilter((prev) => ({
+                ...prev,
+                device: val as SelectValue,
+              }))
+            }}
+          />
+        </div>
       </div>
       <DataTable
         tableRef={tableRef}
@@ -74,6 +104,8 @@ const HistoryScreen: React.FC = () => {
         hasAutoNumber
         query={{
           search: searchDebounce || undefined,
+          user_id: filter.user?.value || undefined,
+          device_id: filter.device?.value || undefined,
         }}
       />
     </div>

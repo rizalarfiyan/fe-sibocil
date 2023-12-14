@@ -1,17 +1,13 @@
 'use client'
 
 import { Plus, Search } from 'lucide-react'
-import { useRef, useState } from 'react'
 
 import Button from '@/components/Button'
-import DataTable, {
-  DataTableColumn,
-  DataTableHandle,
-} from '@/components/DataTable'
+import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Input from '@/components/Input'
 import Typography from '@/components/Typography'
-import useDebounce from '@/hooks/useDebounce'
 
+import useDashboardUser from './hook'
 import { getAll } from './service'
 
 const columns: DataTableColumn = [
@@ -43,13 +39,7 @@ const columns: DataTableColumn = [
 ]
 
 const UserScreen: React.FC = () => {
-  const tableRef = useRef<DataTableHandle>(null)
-  const [search, setSearch] = useState('')
-  const searchDebounce = useDebounce(search, 400)
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    setSearch(event.target.value)
-  }
+  const { tableRef, search, searchDebounce, handleSearch } = useDashboardUser()
 
   return (
     <div className='space-y-5'>

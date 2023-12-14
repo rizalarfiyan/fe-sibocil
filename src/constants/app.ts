@@ -10,4 +10,9 @@ const QUERY_KEY = {
   Me: 'auth-me',
 }
 
-export { API_BASE_URL, APP_NAME, COOKIE, QUERY_KEY }
+const AUTH_ROLE = {
+  admin: 'admin',
+  guest: 'guest',
+} as const
+
+export { API_BASE_URL, APP_NAME, AUTH_ROLE, COOKIE, QUERY_KEY }

@@ -1,3 +1,5 @@
+import { AUTH_ROLE } from '@/constants'
+
 export type RequiredPartial<T, K extends keyof T> = T & Required<Pick<T, K>>
 
 export type PageProps = {
@@ -5,7 +7,7 @@ export type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export type AuthRole = 'admin' | 'guest'
+export type AuthRole = keyof typeof AUTH_ROLE
 
 export interface AuthToken {
   first_name: string

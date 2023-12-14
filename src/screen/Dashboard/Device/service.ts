@@ -1,7 +1,7 @@
 import { requestHandler } from '@/utils/request'
 
-import { BaseResponseList } from '@/@types'
-import { BaseRequestPayload } from '@/@types/request'
+import { BaseResponseList, SelectValue } from '@/@types'
+import { BaseRequestPayload } from '@/@types'
 import axios from '@/libs/axios'
 
 import { DeviceResponse } from './types'
@@ -11,4 +11,9 @@ const getAll = requestHandler<
   BaseResponseList<DeviceResponse>
 >((params) => axios.get('/device', { params }))
 
-export { getAll }
+const getAllDropdown = requestHandler<
+  BaseRequestPayload,
+  BaseResponseList<SelectValue>
+>((params) => axios.get('/device/dropdown', { params }))
+
+export { getAll, getAllDropdown }
