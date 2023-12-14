@@ -17,17 +17,16 @@ axios.interceptors.request.use((config) => {
 })
 
 axios.interceptors.response.use(
-  (res) => {
-    return res
-  },
+  (res) => res,
   (error) => {
-    if (error.response.status === 401) {
+    const statusCode = error.response?.data?.code || error.response?.status
+    if (statusCode === 401) {
       Cookies.remove(COOKIE.AuthTokenVerify)
       Cookies.remove(COOKIE.AuthToken)
       window.location.href = '/login'
     }
 
-    return error
+    return Promise.reject(error)
   },
 )
 

@@ -4,11 +4,13 @@ import { BaseError, BaseRequest, BaseResponse } from '@/@types'
 
 const errResponse = <V, E = BaseError<V>>(e: unknown) => {
   const err = e as BaseError<V>
+
   return {
     code:
       (err.response?.data.code as HttpStatusCode) ||
       err.response?.status ||
-      err.code,
+      err?.code ||
+      500,
     message:
       err.response?.data.message || err.response?.statusText || err.message,
     data: err.response?.data.data as V,
@@ -23,9 +25,9 @@ export const requestHandler = <T, V, E = BaseError<V>>(
     try {
       const res = await request(params)
       return {
-        code: res.data.code || res.status,
-        message: res.data.message || res.statusText,
-        data: res.data.data,
+        code: res.data?.code || res.status,
+        message: res.data?.message || res.statusText,
+        data: res.data?.data,
       }
     } catch (error) {
       throw errResponse<V, E>(error)
