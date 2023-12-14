@@ -1,3 +1,5 @@
+import { SelectValue } from '@/@types'
+
 export type HistoryResponse = {
   id: string
   success: number
@@ -15,4 +17,9 @@ export interface HistoryUserResponse {
   id: string
   first_name: string
   last_name: string
+}
+
+export interface FilterHistory {
+  user: SelectValue | null
+  device: SelectValue | null
 }

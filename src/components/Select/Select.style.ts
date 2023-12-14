@@ -25,10 +25,7 @@ const selectStyles: StylesConfig = {
   },
   control: (style, { isFocused }) => ({
     ...style,
-    fontSize: '0.875rem',
-    lineHeight: '1.25rem',
     color: '#e2e8f0',
-    padding: '3px 0.25rem',
     boxShadow: isFocused ? '0 0 0 1px #10b981' : '',
     borderColor: isFocused ? '#10b981' : '#e2e8f0',
     '&:hover': {

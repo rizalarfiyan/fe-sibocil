@@ -1,19 +1,16 @@
 import { useRef, useState } from 'react'
 
-import { SelectValue } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
 import useDebounce from '@/hooks/useDebounce'
 
+import { FilterHistory } from './types'
 import useDashboard from '../hooks'
 
 const useDashboardHistory = () => {
   const { user } = useDashboard()
   const tableRef = useRef<DataTableHandle>(null)
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState<{
-    user: SelectValue | null
-    device: SelectValue | null
-  }>({
+  const [filter, setFilter] = useState<FilterHistory>({
     user: null,
     device: null,
   })

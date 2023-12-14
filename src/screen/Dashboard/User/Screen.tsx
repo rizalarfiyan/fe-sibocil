@@ -1,11 +1,14 @@
 'use client'
 
-import { Plus, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
+import { OnChangeValue } from 'react-select'
 
-import Button from '@/components/Button'
+import { SelectValue } from '@/@types'
 import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Input from '@/components/Input'
+import Select from '@/components/Select'
 import Typography from '@/components/Typography'
+import { AUTH_ROLE } from '@/constants'
 
 import useDashboardUser from './hook'
 import { getAll } from './service'
@@ -38,8 +41,20 @@ const columns: DataTableColumn = [
   },
 ]
 
+const userOptions: SelectValue[] = [
+  {
+    label: 'Admin',
+    value: AUTH_ROLE.admin,
+  },
+  {
+    label: 'Guest',
+    value: AUTH_ROLE.guest,
+  },
+]
+
 const UserScreen: React.FC = () => {
-  const { tableRef, search, searchDebounce, handleSearch } = useDashboardUser()
+  const { tableRef, search, searchDebounce, handleSearch, filter, setFilter } =
+    useDashboardUser()
 
   return (
     <div className='space-y-5'>
@@ -55,7 +70,16 @@ const UserScreen: React.FC = () => {
           rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
           className='max-w-sm'
         />
-        <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>Add User</Button>
+        <Select
+          className='max-w-[240px]'
+          value={filter}
+          isClearable
+          options={userOptions}
+          placeholder='Filter by Role'
+          onChange={(val: OnChangeValue<unknown, false>) => {
+            setFilter(val as SelectValue)
+          }}
+        />
       </div>
       <DataTable
         tableRef={tableRef}
@@ -64,6 +88,7 @@ const UserScreen: React.FC = () => {
         hasAutoNumber
         query={{
           search: searchDebounce || undefined,
+          role: filter?.value || undefined,
         }}
       />
     </div>
