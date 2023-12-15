@@ -7,4 +7,5 @@ export type UserResponse = {
   phone_number: string
   identity: string
   role: AuthRole
+  is_deleted: boolean
 }

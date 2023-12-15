@@ -85,7 +85,10 @@ export const DataTable = (props: DataTableProps) => {
               {getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className='hover:bg-slate-100 active:bg-slate-200'
+                  className={cn(
+                    'hover:bg-slate-100 active:bg-slate-200',
+                    props?.rowClassName?.(row.original),
+                  )}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td aria-hidden='true' className='px-6 py-4' key={cell.id}>

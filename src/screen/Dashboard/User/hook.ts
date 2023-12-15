@@ -1,8 +1,15 @@
+import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 
-import { SelectValue } from '@/@types'
+import { cn } from '@/utils/classes'
+
+import { ErrorResponse, SelectValue } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
 import useDebounce from '@/hooks/useDebounce'
+import { useToast } from '@/hooks/useToast'
+
+import { toggleDelete } from './service'
+import { UserResponse } from './types'
 
 const useDashboardUser = () => {
   const tableRef = useRef<DataTableHandle>(null)
@@ -14,6 +21,32 @@ const useDashboardUser = () => {
     setSearch(event.target.value)
   }
 
+  const rowClassName = (row: UserResponse) => {
+    return cn(row.is_deleted && 'text-red-500')
+  }
+
+  const { toast } = useToast()
+  const deleteApi = useMutation({
+    mutationFn: toggleDelete,
+    onSuccess: () => {
+      tableRef.current?.update()
+    },
+    onError: (error: ErrorResponse<null>) => {
+      toast({
+        title: 'Error!',
+        description: error.message,
+        variant: 'destructive',
+      })
+    },
+  })
+
+  const onDelete = (id: string) => {
+    return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault()
+      deleteApi.mutate({ id })
+    }
+  }
+
   return {
     tableRef,
     search,
@@ -21,6 +54,8 @@ const useDashboardUser = () => {
     handleSearch,
     filter,
     setFilter,
+    rowClassName,
+    onDelete,
   }
 }
 

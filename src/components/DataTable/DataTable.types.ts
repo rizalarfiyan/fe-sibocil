@@ -25,6 +25,7 @@ export interface DataTableProps {
   defaultSort?: QuerySorting
   className?: string
   actions?: (idx: string, row: any) => React.ReactNode
+  rowClassName?: (row: any) => string
 }
 
 export interface DataTableHandle {
