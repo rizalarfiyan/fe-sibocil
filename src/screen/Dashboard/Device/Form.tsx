@@ -48,16 +48,18 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
             name='name'
             disabled={props.isView}
             render={({ field }) => (
-              <div className='grid grid-cols-4 items-center gap-4'>
+              <Form.Item className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='device-name'>Name</Label>
-                <Input
-                  id='device-name'
-                  type='text'
-                  placeholder='Device Name'
-                  parentClassName='col-span-3'
-                  {...field}
-                />
-              </div>
+                <div className='col-span-3 space-y-2'>
+                  <Input
+                    id='device-name'
+                    type='text'
+                    placeholder='Device Name'
+                    {...field}
+                  />
+                  <Form.Message />
+                </div>
+              </Form.Item>
             )}
           />
           <Form.Field
@@ -65,15 +67,18 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
             name='location'
             disabled={props.isView}
             render={({ field }) => (
-              <div className='grid grid-cols-4 items-center gap-4'>
+              <Form.Item className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='device-location'>Location</Label>
-                <Textarea
-                  id='device-location'
-                  placeholder='Device Location'
-                  className='col-span-3 max-h-48'
-                  {...field}
-                />
-              </div>
+                <div className='col-span-3 space-y-2'>
+                  <Textarea
+                    id='device-location'
+                    placeholder='Device Location'
+                    className='max-h-48'
+                    {...field}
+                  />
+                  <Form.Message />
+                </div>
+              </Form.Item>
             )}
           />
         </div>
