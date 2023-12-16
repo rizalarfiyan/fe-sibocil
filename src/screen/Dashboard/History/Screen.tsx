@@ -11,6 +11,7 @@ import Input from '@/components/Input'
 import Select from '@/components/Select'
 import Typography from '@/components/Typography'
 import { AUTH_ROLE } from '@/constants'
+import { DATATABLE_STATUS_OPTION } from '@/constants/options'
 
 import useDashboardHistory from './hook'
 import { getAll } from './service'
@@ -69,21 +70,6 @@ const HistoryScreen: React.FC = () => {
           className='max-w-sm'
         />
         <div className='flex w-full justify-end gap-2'>
-          {role === AUTH_ROLE.admin && (
-            <Select.Pagination
-              className='w-[240px]'
-              value={filter.user}
-              apiController={getAllDropdownUser}
-              isClearable
-              placeholder='User'
-              onChange={(val: OnChangeValue<unknown, false>) => {
-                setFilter((prev) => ({
-                  ...prev,
-                  user: val as SelectValue,
-                }))
-              }}
-            />
-          )}
           <Select.Pagination
             className='w-[240px]'
             value={filter.device}
@@ -96,7 +82,43 @@ const HistoryScreen: React.FC = () => {
                 device: val as SelectValue,
               }))
             }}
+            query={{
+              status: filter.status?.value || undefined,
+            }}
           />
+          {role === AUTH_ROLE.admin && (
+            <>
+              <Select.Pagination
+                className='w-[240px]'
+                value={filter.user}
+                apiController={getAllDropdownUser}
+                isClearable
+                placeholder='User'
+                onChange={(val: OnChangeValue<unknown, false>) => {
+                  setFilter((prev) => ({
+                    ...prev,
+                    user: val as SelectValue,
+                  }))
+                }}
+                query={{
+                  status: filter.status?.value || undefined,
+                }}
+              />
+              <Select
+                className='w-[160px]'
+                value={filter.status}
+                isClearable
+                options={DATATABLE_STATUS_OPTION}
+                placeholder='Status'
+                onChange={(val: OnChangeValue<unknown, false>) => {
+                  setFilter((prev) => ({
+                    ...prev,
+                    status: val as SelectValue,
+                  }))
+                }}
+              />
+            </>
+          )}
         </div>
       </div>
       <DataTable
@@ -108,6 +130,7 @@ const HistoryScreen: React.FC = () => {
           search: searchDebounce || undefined,
           user_id: filter.user?.value || undefined,
           device_id: filter.device?.value || undefined,
+          status: filter.status?.value || undefined,
         }}
       />
     </div>

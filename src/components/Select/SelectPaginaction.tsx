@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { useCallback } from 'react'
 import { StylesConfig } from 'react-select'
 import { AsyncPaginate } from 'react-select-async-paginate'
 
@@ -30,42 +31,45 @@ const SelectPagination: React.FC<SelectPaginationProps> = (props) => {
     mutationFn: apiController,
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const loadOptions = async (search: string, prev: any, more: any) => {
-    const page = more?.page || 1
-    const rawCondition = {
-      limit: perPage,
-      page,
-      ...(searchKey !== '' && search !== '' ? { [searchKey]: search } : {}),
-      ...query,
-    }
+  const loadOptions = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async (search: string, prev: any, more: any) => {
+      const page = more?.page || 1
+      const rawCondition = {
+        limit: perPage,
+        page,
+        ...(searchKey !== '' && search !== '' ? { [searchKey]: search } : {}),
+        ...query,
+      }
 
-    return await api
-      .mutateAsync({ ...rawCondition })
-      .then(({ data }) => {
-        const totalData = data.metadata.total || 0
-        const resultData = data.content.map((val) => {
+      return await api
+        .mutateAsync({ ...rawCondition })
+        .then(({ data }) => {
+          const totalData = data.metadata.total || 0
+          const resultData = data.content.map((val) => {
+            return {
+              ...(isAllData ? val : {}),
+              value: val?.[valueKey],
+              label: val?.[labelKey],
+            }
+          })
           return {
-            ...(isAllData ? val : {}),
-            value: val?.[valueKey],
-            label: val?.[labelKey],
+            options: resultData,
+            hasMore: totalData > perPage * page,
+            additional: {
+              page: page + 1,
+            },
           }
         })
-        return {
-          options: resultData,
-          hasMore: totalData > perPage * page,
-          additional: {
-            page: page + 1,
-          },
-        }
-      })
-      .catch(() => {
-        return {
-          options: [],
-          hasMore: false,
-        }
-      })
-  }
+        .catch(() => {
+          return {
+            options: [],
+            hasMore: false,
+          }
+        })
+    },
+    [query],
+  )
 
   return (
     <AsyncPaginate
@@ -77,6 +81,7 @@ const SelectPagination: React.FC<SelectPaginationProps> = (props) => {
       styles={selectStyles as StylesConfig<SelectValue>}
       className={cn('w-full', className)}
       debounceTimeout={debounceTimeout}
+      cacheUniqs={[query]}
       {...rest}
     />
   )

@@ -12,7 +12,7 @@ import Dialog from '@/components/Dialog'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import Typography from '@/components/Typography'
-import { DATATABLE_STATUS_OPTION, USER_OPTION } from '@/constants/options'
+import { AUTH_ROLE_OPTION, DATATABLE_STATUS_OPTION } from '@/constants/options'
 
 import UserScreenAction from './Action'
 import Form from './Form'
@@ -76,7 +76,7 @@ const UserScreen: React.FC = () => {
             className='max-w-xs'
           />
           <Select
-            className='w-[150px]'
+            className='w-[160px]'
             value={filter.status}
             isClearable
             options={DATATABLE_STATUS_OPTION}
@@ -89,10 +89,10 @@ const UserScreen: React.FC = () => {
             }}
           />
           <Select
-            className='w-[150px]'
+            className='w-[160px]'
             value={filter.role}
             isClearable
-            options={USER_OPTION}
+            options={AUTH_ROLE_OPTION}
             placeholder='Role'
             onChange={(val: OnChangeValue<unknown, false>) => {
               setFilter((prev) => ({

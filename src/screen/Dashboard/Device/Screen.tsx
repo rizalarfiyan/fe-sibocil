@@ -65,7 +65,7 @@ const DeviceScreen: React.FC = () => {
             rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
           />
           <Select
-            className='w-[150px]'
+            className='w-[160px]'
             value={filter.status}
             isClearable
             options={DATATABLE_STATUS_OPTION}

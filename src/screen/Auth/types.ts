@@ -61,7 +61,7 @@ export type AuthRegisterRequest = {
   token: string
   phone_number: string
   first_name: string
-  last_name: string
+  last_name?: string
 }
 
 export type AuthRegisterResponse = {

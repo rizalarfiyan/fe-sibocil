@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 
 import { DataTableHandle } from '@/components/DataTable'
+import { DEFAULT_DATATABLE_STATUS } from '@/constants/options'
 import useDebounce from '@/hooks/useDebounce'
 
 import { FilterHistory } from './types'
@@ -13,6 +14,7 @@ const useDashboardHistory = () => {
   const [filter, setFilter] = useState<FilterHistory>({
     user: null,
     device: null,
+    status: DEFAULT_DATATABLE_STATUS,
   })
   const searchDebounce = useDebounce(search, 400)
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

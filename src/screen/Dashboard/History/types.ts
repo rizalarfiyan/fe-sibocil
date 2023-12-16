@@ -22,4 +22,5 @@ export interface HistoryUserResponse {
 export interface FilterHistory {
   user: SelectValue | null
   device: SelectValue | null
+  status: SelectValue | null
 }

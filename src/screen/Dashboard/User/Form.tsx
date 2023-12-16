@@ -7,7 +7,7 @@ import Form from '@/components/Form'
 import Input from '@/components/Input'
 import Label from '@/components/Label'
 import Select from '@/components/Select'
-import { USER_OPTION } from '@/constants/options'
+import { AUTH_ROLE_OPTION } from '@/constants/options'
 
 import { useDashboardUserForm } from './hook'
 import { UserScreenFormProps } from './types'
@@ -124,8 +124,10 @@ const UserScreenForm: React.FC<UserScreenFormProps> = (props) => {
                 <Label htmlFor='user-role'>Role</Label>
                 <div className='col-span-3 space-y-2'>
                   <Select
-                    value={USER_OPTION.filter((val) => val.value === value)}
-                    options={USER_OPTION}
+                    value={AUTH_ROLE_OPTION.filter(
+                      (val) => val.value === value,
+                    )}
+                    options={AUTH_ROLE_OPTION}
                     id='user-role'
                     placeholder='Role'
                     isDisabled={props.isView}
