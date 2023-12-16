@@ -19,7 +19,7 @@ import { create, toggleDelete, update } from './service'
 import { DeviceScreenFormProps, FilterDevice } from './types'
 
 export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
-  const { tableRef, fill, idx, state } = props
+  const { tableRef, fill, idx, state, isView } = props
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -89,6 +89,7 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
 
   const { isDirty, isValid } = form.formState
   const onSubmit = (data: z.infer<typeof schema>) => {
+    if (isView) return
     if (!idx || idx === '') {
       apiCreate.mutate({
         name: data.name,

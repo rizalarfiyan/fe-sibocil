@@ -11,6 +11,7 @@ export type DeviceScreenFormProps = {
   fill?: z.infer<typeof schema>
   tableRef: React.MutableRefObject<DataTableHandle | null>
   state: UseDisclosure
+  isView?: boolean
 }
 
 export type DeviceScreenActionProps = {

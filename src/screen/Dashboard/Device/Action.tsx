@@ -1,4 +1,4 @@
-import { Pencil, RotateCcw, Trash } from 'lucide-react'
+import { Eye, Pencil, RotateCcw, Trash } from 'lucide-react'
 
 import AlertDialog from '@/components/AlertDialog'
 import Button from '@/components/Button'
@@ -14,6 +14,34 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
 
   return (
     <div className='flex gap-2'>
+      <Dialog>
+        <Dialog.Trigger asChild>
+          <Button
+            size='icon'
+            variant='subtle'
+            state='secondary'
+            className='h-7 w-7 border border-secondary-500'
+          >
+            <Eye className='h-4 w-4' />
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title className='text-center'>View Device</Dialog.Title>
+          </Dialog.Header>
+          <DeviceScreenForm
+            state={state}
+            tableRef={tableRef}
+            idx={idx}
+            isView
+            fill={{
+              location: data.location,
+              name: data.name,
+              token: data.token,
+            }}
+          />
+        </Dialog.Content>
+      </Dialog>
       <Dialog open={state.isOpen} onOpenChange={state.toggle}>
         <Dialog.Trigger asChild>
           <Button

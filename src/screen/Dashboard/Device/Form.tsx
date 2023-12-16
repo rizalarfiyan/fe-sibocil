@@ -46,6 +46,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
           <Form.Field
             control={form.control}
             name='name'
+            disabled={props.isView}
             render={({ field }) => (
               <div className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='device-name'>Name</Label>
@@ -62,6 +63,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
           <Form.Field
             control={form.control}
             name='location'
+            disabled={props.isView}
             render={({ field }) => (
               <div className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='device-location'>Location</Label>
@@ -75,11 +77,13 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
             )}
           />
         </div>
-        <Dialog.Footer>
-          <Button type='submit' disabled={isDisable}>
-            Submit
-          </Button>
-        </Dialog.Footer>
+        {!props.isView && (
+          <Dialog.Footer>
+            <Button type='submit' disabled={isDisable}>
+              Submit
+            </Button>
+          </Dialog.Footer>
+        )}
       </form>
     </Form>
   )
