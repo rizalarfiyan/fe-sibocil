@@ -50,7 +50,12 @@ const RegisterScreen: React.FC<RegisterProps> = (props) => {
             <Form.Item>
               <Form.Label>Phone Number</Form.Label>
               <Form.Control>
-                <Input type='text' placeholder='628xxxxxxxxxx' {...field} />
+                <Input
+                  type='number'
+                  className='arrow-hide'
+                  placeholder='628xxxxxxxxxx'
+                  {...field}
+                />
               </Form.Control>
               <Form.Message />
             </Form.Item>

@@ -54,7 +54,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
                   <Input
                     id='device-name'
                     type='text'
-                    placeholder='Device Name'
+                    placeholder='Revend AMIKOM 1'
                     {...field}
                   />
                   <Form.Message />
@@ -72,7 +72,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
                 <div className='col-span-3 space-y-2'>
                   <Textarea
                     id='device-location'
-                    placeholder='Device Location'
+                    placeholder='Revend yang berada di gedung 7 lantai 1 Universitas AMIKOM Yogyakarta'
                     className='max-h-48'
                     {...field}
                   />

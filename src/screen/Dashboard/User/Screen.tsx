@@ -1,19 +1,21 @@
 'use client'
 
-import { Pencil, RotateCcw, Search, Trash } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
 import { OnChangeValue } from 'react-select'
 
 import { cn } from '@/utils/classes'
 
 import { SelectValue } from '@/@types'
-import AlertDialog from '@/components/AlertDialog'
 import Button from '@/components/Button'
 import DataTable, { DataTableColumn } from '@/components/DataTable'
+import Dialog from '@/components/Dialog'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import Typography from '@/components/Typography'
 import { DATATABLE_STATUS_OPTION, USER_OPTION } from '@/constants/options'
 
+import UserScreenAction from './Action'
+import Form from './Form'
 import useDashboardUser from './hook'
 import { getAll } from './service'
 import { UserResponse } from './types'
@@ -48,6 +50,7 @@ const columns: DataTableColumn = [
 
 const UserScreen: React.FC = () => {
   const {
+    createState,
     tableRef,
     search,
     searchDebounce,
@@ -63,16 +66,15 @@ const UserScreen: React.FC = () => {
         List of Users
       </Typography>
       <div className='flex flex-row items-center justify-between gap-2'>
-        <Input
-          name='search'
-          value={search}
-          onChange={handleSearch}
-          placeholder='Search...'
-          rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
-          className='max-w-xs'
-        />
-        <div className='flex-shrink' />
         <div className='flex justify-end gap-2'>
+          <Input
+            name='search'
+            value={search}
+            onChange={handleSearch}
+            placeholder='Search...'
+            rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
+            className='max-w-xs'
+          />
           <Select
             className='w-[150px]'
             value={filter.status}
@@ -100,6 +102,20 @@ const UserScreen: React.FC = () => {
             }}
           />
         </div>
+        <div className='flex-shrink' />
+        <Dialog open={createState.isOpen} onOpenChange={createState.toggle}>
+          <Dialog.Trigger asChild>
+            <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
+              Create User
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header>
+              <Dialog.Title className='text-center'>Create User</Dialog.Title>
+            </Dialog.Header>
+            <Form state={createState} tableRef={tableRef} />
+          </Dialog.Content>
+        </Dialog>
       </div>
       <DataTable
         tableRef={tableRef}
@@ -114,58 +130,14 @@ const UserScreen: React.FC = () => {
         rowClassName={(row: UserResponse) => {
           return cn(row.is_deleted && !filter?.status?.value && 'text-red-500')
         }}
-        actions={(idx, res: UserResponse) => {
-          return (
-            <div className='flex gap-2'>
-              <Button
-                size='icon'
-                variant='subtle'
-                state='success'
-                className='h-7 w-7 border border-success-500'
-              >
-                <Pencil className='h-4 w-4' />
-              </Button>
-              <AlertDialog>
-                <AlertDialog.Trigger asChild>
-                  {res.is_deleted ? (
-                    <Button
-                      size='icon'
-                      variant='subtle'
-                      state='info'
-                      className='h-7 w-7 border border-info-500'
-                    >
-                      <RotateCcw className='h-4 w-4' />
-                    </Button>
-                  ) : (
-                    <Button
-                      size='icon'
-                      variant='subtle'
-                      state='danger'
-                      className='h-7 w-7 border border-danger-500'
-                    >
-                      <Trash className='h-4 w-4' />
-                    </Button>
-                  )}
-                </AlertDialog.Trigger>
-                <AlertDialog.Content>
-                  <AlertDialog.Header>
-                    <AlertDialog.Title>Are you sure?</AlertDialog.Title>
-                    <AlertDialog.Description>
-                      Make sure you want to{' '}
-                      {res.is_deleted ? 'restore' : 'delete'} the user account?
-                    </AlertDialog.Description>
-                  </AlertDialog.Header>
-                  <AlertDialog.Footer>
-                    <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                    <AlertDialog.Action onClick={onDelete(idx)}>
-                      Delete
-                    </AlertDialog.Action>
-                  </AlertDialog.Footer>
-                </AlertDialog.Content>
-              </AlertDialog>
-            </div>
-          )
-        }}
+        actions={(idx, res: UserResponse) => (
+          <UserScreenAction
+            idx={idx}
+            data={res}
+            onDelete={onDelete}
+            tableRef={tableRef}
+          />
+        )}
       />
     </div>
   )

@@ -82,7 +82,7 @@ const DeviceScreen: React.FC = () => {
         <Dialog open={createState.isOpen} onOpenChange={createState.toggle}>
           <Dialog.Trigger asChild>
             <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
-              Add Device
+              Create Device
             </Button>
           </Dialog.Trigger>
           <Dialog.Content>

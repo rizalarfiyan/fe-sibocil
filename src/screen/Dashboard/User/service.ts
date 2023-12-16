@@ -4,7 +4,7 @@ import { BaseRequestByIdPayload, BaseResponseList, SelectValue } from '@/@types'
 import { BaseRequestListPayload } from '@/@types'
 import axios from '@/libs/axios'
 
-import { UserResponse } from './types'
+import { CreateUserRequest, UpdateUserRequest, UserResponse } from './types'
 
 const getAll = requestHandler<
   BaseRequestListPayload,
@@ -16,9 +16,17 @@ const getAllDropdown = requestHandler<
   BaseResponseList<SelectValue>
 >((params) => axios.get('/user/dropdown', { params }))
 
+const create = requestHandler<CreateUserRequest, BaseResponseList<null>>(
+  (params) => axios.post('/user', { ...params }),
+)
+
+const update = requestHandler<UpdateUserRequest, BaseResponseList<null>>(
+  (params) => axios.put('/user/' + params?.id, { ...params }),
+)
+
 const toggleDelete = requestHandler<
   BaseRequestByIdPayload,
   BaseResponseList<null>
 >((params) => axios.delete('/user/' + params?.id))
 
-export { getAll, getAllDropdown, toggleDelete }
+export { create, getAll, getAllDropdown, toggleDelete, update }
