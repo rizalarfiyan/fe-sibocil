@@ -1,16 +1,19 @@
 import { Label } from '@radix-ui/react-label'
+import { Copy } from 'lucide-react'
 
 import Button from '@/components/Button'
 import Dialog from '@/components/Dialog'
 import Form from '@/components/Form'
 import Input from '@/components/Input'
 import Textarea from '@/components/Textarea'
+import Tooltip from '@/components/Tooltip'
 
 import { useDashboardDeviceForm } from './hooks'
 import { DeviceScreenFormProps } from './types'
 
 const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
-  const { form, isDisable, onSubmit } = useDashboardDeviceForm(props)
+  const { form, isDisable, onSubmit, onCopy, tooltip } =
+    useDashboardDeviceForm(props)
 
   return (
     <Form {...form}>
@@ -19,12 +22,25 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
           {props.fill?.token && (
             <div className='grid grid-cols-4 items-center gap-4'>
               <Label htmlFor='device-token'>Token</Label>
-              <Input
-                id='device-token'
-                defaultValue={props.fill?.token}
-                parentClassName='col-span-3'
-                disabled
-              />
+              <div className='col-span-3 flex gap-2'>
+                <Tooltip.Provider>
+                  <Tooltip open={tooltip.isOpen} onOpenChange={tooltip.close}>
+                    <Tooltip.Trigger asChild>
+                      <Input
+                        id='device-token'
+                        defaultValue={props.fill?.token}
+                        disabled
+                      />
+                    </Tooltip.Trigger>
+                    <Tooltip.Content side='bottom' align='center'>
+                      Success copy to clipboard!
+                    </Tooltip.Content>
+                  </Tooltip>
+                </Tooltip.Provider>
+                <Button size='icon' type='button' onClick={onCopy}>
+                  <Copy className='h-4 w-4' />
+                </Button>
+              </div>
             </div>
           )}
           <Form.Field

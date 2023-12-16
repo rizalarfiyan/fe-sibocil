@@ -1,8 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import copy from 'copy-to-clipboard'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+
+import { dialogClose } from '@/utils/components'
 
 import { ErrorResponse } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
@@ -32,10 +35,7 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
     mutationFn: create,
     onSuccess: () => {
       state.close()
-      const timeout = setTimeout(() => {
-        tableRef.current?.update()
-        clearTimeout(timeout)
-      }, 150)
+      dialogClose(() => tableRef.current?.update())
     },
     onError: (error: ErrorResponse<object | null>) => {
       if (error.code === 400) {
@@ -48,10 +48,13 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
         return
       }
 
-      toast({
-        title: 'Error!',
-        description: error.message,
-        variant: 'destructive',
+      state.close()
+      dialogClose(() => {
+        toast({
+          title: 'Error!',
+          description: error.message,
+          variant: 'destructive',
+        })
       })
     },
   })
@@ -60,10 +63,7 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
     mutationFn: update,
     onSuccess: () => {
       state.close()
-      const timeout = setTimeout(() => {
-        tableRef.current?.update()
-        clearTimeout(timeout)
-      }, 150)
+      dialogClose(() => tableRef.current?.update())
     },
     onError: (error: ErrorResponse<object | null>) => {
       if (error.code === 400) {
@@ -76,10 +76,13 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
         return
       }
 
-      toast({
-        title: 'Error!',
-        description: error.message,
-        variant: 'destructive',
+      state.close()
+      dialogClose(() => {
+        toast({
+          title: 'Error!',
+          description: error.message,
+          variant: 'destructive',
+        })
       })
     },
   })
@@ -101,10 +104,21 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
     })
   }
 
+  const tooltip = useDisclosure()
+  const onCopy = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    if (!fill?.token) return
+    if (copy(fill.token)) {
+      tooltip.open()
+    }
+  }
+
   return {
     form,
     isDisable: !isDirty || !isValid,
     onSubmit,
+    onCopy,
+    tooltip,
   }
 }
 

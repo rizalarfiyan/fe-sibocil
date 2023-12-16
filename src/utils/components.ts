@@ -17,3 +17,10 @@ export const emptySelectValue = (value?: SelectValue): SelectValue | null => {
   if (!value || (value.value === '' && value.label === '')) return null
   return value
 }
+
+export const dialogClose = (callback: () => void, time = 150) => {
+  const timeout = setTimeout(() => {
+    callback()
+    clearTimeout(timeout)
+  }, time)
+}
