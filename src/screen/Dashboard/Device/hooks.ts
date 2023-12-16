@@ -120,6 +120,7 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
     onSubmit,
     onCopy,
     tooltip,
+    isUpdate: idx && idx !== '',
   }
 }
 

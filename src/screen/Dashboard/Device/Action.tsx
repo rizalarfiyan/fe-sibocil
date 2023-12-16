@@ -10,6 +10,7 @@ import { DeviceScreenActionProps } from './types'
 
 const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
   const { tableRef, idx, data, onDelete } = props
+  const isDeleted = data.is_deleted
   const state = useDisclosure()
 
   return (
@@ -19,8 +20,8 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
           <Button
             size='icon'
             variant='subtle'
-            state='secondary'
-            className='h-7 w-7 border border-secondary-500'
+            state='info'
+            className='h-7 w-7 border border-info-500'
           >
             <Eye className='h-4 w-4' />
           </Button>
@@ -55,7 +56,7 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
         </Dialog.Trigger>
         <Dialog.Content>
           <Dialog.Header>
-            <Dialog.Title className='text-center'>Update Device</Dialog.Title>
+            <Dialog.Title className='text-center'>Edit Device</Dialog.Title>
           </Dialog.Header>
           <DeviceScreenForm
             state={state}
@@ -71,12 +72,12 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
       </Dialog>
       <AlertDialog>
         <AlertDialog.Trigger asChild>
-          {data.is_deleted ? (
+          {isDeleted ? (
             <Button
               size='icon'
               variant='subtle'
-              state='info'
-              className='h-7 w-7 border border-info-500'
+              state='warning'
+              className='h-7 w-7 border border-warning-500'
             >
               <RotateCcw className='h-4 w-4' />
             </Button>
@@ -95,14 +96,17 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
           <AlertDialog.Header>
             <AlertDialog.Title>Are you sure?</AlertDialog.Title>
             <AlertDialog.Description>
-              Make sure you want to {data.is_deleted ? 'restore' : 'delete'} the
+              Make sure you want to {isDeleted ? 'restore' : 'delete'} the
               device?
             </AlertDialog.Description>
           </AlertDialog.Header>
           <AlertDialog.Footer>
             <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-            <AlertDialog.Action onClick={onDelete(idx)}>
-              Delete
+            <AlertDialog.Action
+              state={isDeleted ? 'warning' : 'danger'}
+              onClick={onDelete(idx)}
+            >
+              {isDeleted ? 'Restore' : 'Delete'}
             </AlertDialog.Action>
           </AlertDialog.Footer>
         </AlertDialog.Content>
