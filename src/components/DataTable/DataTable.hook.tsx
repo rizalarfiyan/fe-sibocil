@@ -90,7 +90,7 @@ const useDataTable = (props: DataTableProps) => {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               cell: (value: any) => {
                 const idx = value?.row?.original?.[keyId] || ''
-                return actions?.(idx, value)
+                return actions?.(idx, value?.row?.original)
               },
             },
           ]

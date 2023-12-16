@@ -1,13 +1,15 @@
 'use client'
 
-import { Pencil, Plus, Search, Trash } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
 
-import AlertDialog from '@/components/AlertDialog'
 import Button from '@/components/Button'
 import DataTable, { DataTableColumn } from '@/components/DataTable'
+import Dialog from '@/components/Dialog'
 import Input from '@/components/Input'
 import Typography from '@/components/Typography'
 
+import DeviceScreenAction from './Action'
+import Form from './Form'
 import useDashboardDevice from './hooks'
 import { getAll } from './service'
 import { DeviceResponse } from './types'
@@ -32,6 +34,7 @@ const columns: DataTableColumn = [
 
 const DeviceScreen: React.FC = () => {
   const {
+    createState,
     tableRef,
     search,
     searchDebounce,
@@ -54,9 +57,19 @@ const DeviceScreen: React.FC = () => {
           rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
           className='max-w-sm'
         />
-        <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
-          Add Device
-        </Button>
+        <Dialog open={createState.isOpen} onOpenChange={createState.toggle}>
+          <Dialog.Trigger asChild>
+            <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
+              Add Device
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header>
+              <Dialog.Title className='text-center'>Create Device</Dialog.Title>
+            </Dialog.Header>
+            <Form state={createState} tableRef={tableRef} />
+          </Dialog.Content>
+        </Dialog>
       </div>
       <DataTable
         tableRef={tableRef}
@@ -67,47 +80,14 @@ const DeviceScreen: React.FC = () => {
           search: searchDebounce || undefined,
         }}
         rowClassName={rowClassName}
-        actions={(idx, res: DeviceResponse) => {
-          return (
-            <div className='flex gap-2'>
-              <Button
-                size='icon'
-                variant='subtle'
-                state='success'
-                className='h-7 w-7 border border-success-500'
-              >
-                <Pencil className='h-4 w-4' />
-              </Button>
-              <AlertDialog>
-                <AlertDialog.Trigger asChild>
-                  <Button
-                    size='icon'
-                    variant='subtle'
-                    state='danger'
-                    className='h-7 w-7 border border-danger-500'
-                  >
-                    <Trash className='h-4 w-4' />
-                  </Button>
-                </AlertDialog.Trigger>
-                <AlertDialog.Content>
-                  <AlertDialog.Header>
-                    <AlertDialog.Title>Are you sure?</AlertDialog.Title>
-                    <AlertDialog.Description>
-                      Make sure you want to{' '}
-                      {res.is_deleted ? 'restore' : 'delete'} the device?
-                    </AlertDialog.Description>
-                  </AlertDialog.Header>
-                  <AlertDialog.Footer>
-                    <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                    <AlertDialog.Action onClick={onDelete(idx)}>
-                      Delete
-                    </AlertDialog.Action>
-                  </AlertDialog.Footer>
-                </AlertDialog.Content>
-              </AlertDialog>
-            </div>
-          )
-        }}
+        actions={(idx, res: DeviceResponse) => (
+          <DeviceScreenAction
+            idx={idx}
+            data={res}
+            onDelete={onDelete}
+            tableRef={tableRef}
+          />
+        )}
       />
     </div>
   )

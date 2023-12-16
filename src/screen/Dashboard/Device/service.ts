@@ -4,7 +4,11 @@ import { BaseRequestByIdPayload, BaseResponseList, SelectValue } from '@/@types'
 import { BaseRequestListPayload } from '@/@types'
 import axios from '@/libs/axios'
 
-import { DeviceResponse } from './types'
+import {
+  CreateDeviceRequest,
+  DeviceResponse,
+  UpdateDeviceRequest,
+} from './types'
 
 const getAll = requestHandler<
   BaseRequestListPayload,
@@ -16,9 +20,17 @@ const getAllDropdown = requestHandler<
   BaseResponseList<SelectValue>
 >((params) => axios.get('/device/dropdown', { params }))
 
+const create = requestHandler<CreateDeviceRequest, BaseResponseList<null>>(
+  (params) => axios.post('/device', { ...params }),
+)
+
+const update = requestHandler<UpdateDeviceRequest, BaseResponseList<null>>(
+  (params) => axios.put('/device/' + params?.id, { ...params }),
+)
+
 const toggleDelete = requestHandler<
   BaseRequestByIdPayload,
   BaseResponseList<null>
 >((params) => axios.delete('/device/' + params?.id))
 
-export { getAll, getAllDropdown, toggleDelete }
+export { create, getAll, getAllDropdown, toggleDelete, update }

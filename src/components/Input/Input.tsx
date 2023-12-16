@@ -6,9 +6,12 @@ import { InputProps } from './Input.types'
 import InputIcon from './InputIcon'
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, rightIcon, leftIcon, type, ...props }, ref) => {
+  (
+    { className, rightIcon, leftIcon, type, parentClassName, ...props },
+    ref,
+  ) => {
     return (
-      <div className='relative'>
+      <div className={cn('relative', parentClassName)}>
         {leftIcon && <InputIcon>{leftIcon}</InputIcon>}
         <input
           type={type}
