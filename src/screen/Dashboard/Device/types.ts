@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { BaseRequestByIdPayload } from '@/@types'
+import { BaseRequestByIdPayload, SelectValue } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
 import { UseDisclosure } from '@/hooks/useDisclosure'
 
@@ -36,3 +36,7 @@ export type CreateDeviceRequest = {
 }
 
 export type UpdateDeviceRequest = BaseRequestByIdPayload & CreateDeviceRequest
+
+export interface FilterDevice {
+  status: SelectValue | null
+}

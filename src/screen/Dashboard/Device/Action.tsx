@@ -1,4 +1,4 @@
-import { Pencil, Trash } from 'lucide-react'
+import { Pencil, RotateCcw, Trash } from 'lucide-react'
 
 import AlertDialog from '@/components/AlertDialog'
 import Button from '@/components/Button'
@@ -43,14 +43,25 @@ const DeviceScreenAction: React.FC<DeviceScreenActionProps> = (props) => {
       </Dialog>
       <AlertDialog>
         <AlertDialog.Trigger asChild>
-          <Button
-            size='icon'
-            variant='subtle'
-            state='danger'
-            className='h-7 w-7 border border-danger-500'
-          >
-            <Trash className='h-4 w-4' />
-          </Button>
+          {data.is_deleted ? (
+            <Button
+              size='icon'
+              variant='subtle'
+              state='info'
+              className='h-7 w-7 border border-info-500'
+            >
+              <RotateCcw className='h-4 w-4' />
+            </Button>
+          ) : (
+            <Button
+              size='icon'
+              variant='subtle'
+              state='danger'
+              className='h-7 w-7 border border-danger-500'
+            >
+              <Trash className='h-4 w-4' />
+            </Button>
+          )}
         </AlertDialog.Trigger>
         <AlertDialog.Content>
           <AlertDialog.Header>

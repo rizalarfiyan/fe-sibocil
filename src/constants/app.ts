@@ -15,4 +15,16 @@ const AUTH_ROLE = {
   guest: 'guest',
 } as const
 
-export { API_BASE_URL, APP_NAME, AUTH_ROLE, COOKIE, QUERY_KEY }
+const DATATABLE_STATUS = {
+  active: 'active',
+  deleted: 'deleted',
+} as const
+
+export {
+  API_BASE_URL,
+  APP_NAME,
+  AUTH_ROLE,
+  COOKIE,
+  DATATABLE_STATUS,
+  QUERY_KEY,
+}

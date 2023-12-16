@@ -1,28 +1,26 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 
-import { cn } from '@/utils/classes'
-
-import { ErrorResponse, SelectValue } from '@/@types'
+import { ErrorResponse } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
+import { DEFAULT_DATATABLE_STATUS } from '@/constants/options'
 import useDebounce from '@/hooks/useDebounce'
 import { useToast } from '@/hooks/useToast'
 
 import { toggleDelete } from './service'
-import { UserResponse } from './types'
+import { FilterUser } from './types'
 
 const useDashboardUser = () => {
   const tableRef = useRef<DataTableHandle>(null)
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState<SelectValue | null>(null)
+  const [filter, setFilter] = useState<FilterUser>({
+    role: null,
+    status: DEFAULT_DATATABLE_STATUS,
+  })
   const searchDebounce = useDebounce(search, 400)
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     setSearch(event.target.value)
-  }
-
-  const rowClassName = (row: UserResponse) => {
-    return cn(row.is_deleted && 'text-red-500')
   }
 
   const { toast } = useToast()
@@ -54,7 +52,6 @@ const useDashboardUser = () => {
     handleSearch,
     filter,
     setFilter,
-    rowClassName,
     onDelete,
   }
 }

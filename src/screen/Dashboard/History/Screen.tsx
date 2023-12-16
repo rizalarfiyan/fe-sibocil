@@ -71,11 +71,11 @@ const HistoryScreen: React.FC = () => {
         <div className='flex w-full justify-end gap-2'>
           {role === AUTH_ROLE.admin && (
             <Select.Pagination
-              className='max-w-[240px]'
+              className='w-[240px]'
               value={filter.user}
               apiController={getAllDropdownUser}
               isClearable
-              placeholder='Filter by user'
+              placeholder='User'
               onChange={(val: OnChangeValue<unknown, false>) => {
                 setFilter((prev) => ({
                   ...prev,
@@ -85,11 +85,11 @@ const HistoryScreen: React.FC = () => {
             />
           )}
           <Select.Pagination
-            className='max-w-[240px]'
+            className='w-[240px]'
             value={filter.device}
             apiController={getAllDropdownDevice}
             isClearable
-            placeholder='Filter by device'
+            placeholder='Device'
             onChange={(val: OnChangeValue<unknown, false>) => {
               setFilter((prev) => ({
                 ...prev,

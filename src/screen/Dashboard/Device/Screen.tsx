@@ -1,12 +1,18 @@
 'use client'
 
 import { Plus, Search } from 'lucide-react'
+import { OnChangeValue } from 'react-select'
 
+import { cn } from '@/utils/classes'
+
+import { SelectValue } from '@/@types'
 import Button from '@/components/Button'
 import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Dialog from '@/components/Dialog'
 import Input from '@/components/Input'
+import Select from '@/components/Select'
 import Typography from '@/components/Typography'
+import { DATATABLE_STATUS_OPTION } from '@/constants/options'
 
 import DeviceScreenAction from './Action'
 import Form from './Form'
@@ -39,8 +45,9 @@ const DeviceScreen: React.FC = () => {
     search,
     searchDebounce,
     handleSearch,
-    rowClassName,
     onDelete,
+    filter,
+    setFilter,
   } = useDashboardDevice()
 
   return (
@@ -49,14 +56,29 @@ const DeviceScreen: React.FC = () => {
         List of Devices
       </Typography>
       <div className='flex flex-row items-center justify-between gap-2'>
-        <Input
-          name='search'
-          value={search}
-          onChange={handleSearch}
-          placeholder='Search...'
-          rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
-          className='max-w-sm'
-        />
+        <div className='flex justify-start gap-2'>
+          <Input
+            name='search'
+            value={search}
+            onChange={handleSearch}
+            placeholder='Search...'
+            rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
+          />
+          <Select
+            className='w-[150px]'
+            value={filter.status}
+            isClearable
+            options={DATATABLE_STATUS_OPTION}
+            placeholder='Status'
+            onChange={(val: OnChangeValue<unknown, false>) => {
+              setFilter((prev) => ({
+                ...prev,
+                status: val as SelectValue,
+              }))
+            }}
+          />
+        </div>
+        <div className='flex-shrink' />
         <Dialog open={createState.isOpen} onOpenChange={createState.toggle}>
           <Dialog.Trigger asChild>
             <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
@@ -78,8 +100,11 @@ const DeviceScreen: React.FC = () => {
         hasAutoNumber
         query={{
           search: searchDebounce || undefined,
+          status: filter?.status?.value || undefined,
         }}
-        rowClassName={rowClassName}
+        rowClassName={(row: DeviceResponse) => {
+          return cn(row.is_deleted && !filter?.status?.value && 'text-red-500')
+        }}
         actions={(idx, res: DeviceResponse) => (
           <DeviceScreenAction
             idx={idx}

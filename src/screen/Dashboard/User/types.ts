@@ -1,4 +1,4 @@
-import { AuthRole } from '@/@types'
+import { AuthRole, SelectValue } from '@/@types'
 
 export type UserResponse = {
   id: string
@@ -8,4 +8,9 @@ export type UserResponse = {
   identity: string
   role: AuthRole
   is_deleted: boolean
+}
+
+export interface FilterUser {
+  role: SelectValue | null
+  status: SelectValue | null
 }

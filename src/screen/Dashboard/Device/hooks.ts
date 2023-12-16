@@ -4,17 +4,16 @@ import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { cn } from '@/utils/classes'
-
 import { ErrorResponse } from '@/@types'
 import { DataTableHandle } from '@/components/DataTable'
+import { DEFAULT_DATATABLE_STATUS } from '@/constants/options'
 import useDebounce from '@/hooks/useDebounce'
 import useDisclosure from '@/hooks/useDisclosure'
 import { useToast } from '@/hooks/useToast'
 
 import schema from './schema'
 import { create, toggleDelete, update } from './service'
-import { DeviceResponse, DeviceScreenFormProps } from './types'
+import { DeviceScreenFormProps, FilterDevice } from './types'
 
 export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
   const { tableRef, fill, idx, state } = props
@@ -113,14 +112,13 @@ const useDashboardDevice = () => {
   const createState = useDisclosure()
   const tableRef = useRef<DataTableHandle>(null)
   const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState<FilterDevice>({
+    status: DEFAULT_DATATABLE_STATUS,
+  })
   const searchDebounce = useDebounce(search, 400)
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     setSearch(event.target.value)
-  }
-
-  const rowClassName = (row: DeviceResponse) => {
-    return cn(row.is_deleted && 'text-red-500')
   }
 
   const { toast } = useToast()
@@ -151,8 +149,9 @@ const useDashboardDevice = () => {
     search,
     searchDebounce,
     handleSearch,
-    rowClassName,
     onDelete,
+    filter,
+    setFilter,
   }
 }
 

@@ -4,6 +4,7 @@ import Button from '@/components/Button'
 import Dialog from '@/components/Dialog'
 import Form from '@/components/Form'
 import Input from '@/components/Input'
+import Textarea from '@/components/Textarea'
 
 import { useDashboardDeviceForm } from './hooks'
 import { DeviceScreenFormProps } from './types'
@@ -35,7 +36,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
                 <Input
                   id='device-name'
                   type='text'
-                  placeholder='John'
+                  placeholder='Device Name'
                   parentClassName='col-span-3'
                   {...field}
                 />
@@ -48,11 +49,10 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
             render={({ field }) => (
               <div className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='device-location'>Location</Label>
-                <Input
+                <Textarea
                   id='device-location'
-                  type='text'
-                  placeholder='John'
-                  parentClassName='col-span-3'
+                  placeholder='Device Location'
+                  className='col-span-3 max-h-48'
                   {...field}
                 />
               </div>

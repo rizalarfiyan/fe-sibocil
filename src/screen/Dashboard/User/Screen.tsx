@@ -1,7 +1,9 @@
 'use client'
 
-import { Pencil, Search, Trash } from 'lucide-react'
+import { Pencil, RotateCcw, Search, Trash } from 'lucide-react'
 import { OnChangeValue } from 'react-select'
+
+import { cn } from '@/utils/classes'
 
 import { SelectValue } from '@/@types'
 import AlertDialog from '@/components/AlertDialog'
@@ -10,7 +12,7 @@ import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import Typography from '@/components/Typography'
-import { AUTH_ROLE } from '@/constants'
+import { DATATABLE_STATUS_OPTION, USER_OPTION } from '@/constants/options'
 
 import useDashboardUser from './hook'
 import { getAll } from './service'
@@ -44,17 +46,6 @@ const columns: DataTableColumn = [
   },
 ]
 
-const userOptions: SelectValue[] = [
-  {
-    label: 'Admin',
-    value: AUTH_ROLE.admin,
-  },
-  {
-    label: 'Guest',
-    value: AUTH_ROLE.guest,
-  },
-]
-
 const UserScreen: React.FC = () => {
   const {
     tableRef,
@@ -63,7 +54,6 @@ const UserScreen: React.FC = () => {
     handleSearch,
     filter,
     setFilter,
-    rowClassName,
     onDelete,
   } = useDashboardUser()
 
@@ -79,18 +69,37 @@ const UserScreen: React.FC = () => {
           onChange={handleSearch}
           placeholder='Search...'
           rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
-          className='max-w-sm'
+          className='max-w-xs'
         />
-        <Select
-          className='max-w-[240px]'
-          value={filter}
-          isClearable
-          options={userOptions}
-          placeholder='Filter by Role'
-          onChange={(val: OnChangeValue<unknown, false>) => {
-            setFilter(val as SelectValue)
-          }}
-        />
+        <div className='flex-shrink' />
+        <div className='flex justify-end gap-2'>
+          <Select
+            className='w-[150px]'
+            value={filter.status}
+            isClearable
+            options={DATATABLE_STATUS_OPTION}
+            placeholder='Status'
+            onChange={(val: OnChangeValue<unknown, false>) => {
+              setFilter((prev) => ({
+                ...prev,
+                status: val as SelectValue,
+              }))
+            }}
+          />
+          <Select
+            className='w-[150px]'
+            value={filter.role}
+            isClearable
+            options={USER_OPTION}
+            placeholder='Role'
+            onChange={(val: OnChangeValue<unknown, false>) => {
+              setFilter((prev) => ({
+                ...prev,
+                role: val as SelectValue,
+              }))
+            }}
+          />
+        </div>
       </div>
       <DataTable
         tableRef={tableRef}
@@ -99,9 +108,12 @@ const UserScreen: React.FC = () => {
         hasAutoNumber
         query={{
           search: searchDebounce || undefined,
-          role: filter?.value || undefined,
+          role: filter?.role?.value || undefined,
+          status: filter?.status?.value || undefined,
         }}
-        rowClassName={rowClassName}
+        rowClassName={(row: UserResponse) => {
+          return cn(row.is_deleted && !filter?.status?.value && 'text-red-500')
+        }}
         actions={(idx, res: UserResponse) => {
           return (
             <div className='flex gap-2'>
@@ -115,14 +127,25 @@ const UserScreen: React.FC = () => {
               </Button>
               <AlertDialog>
                 <AlertDialog.Trigger asChild>
-                  <Button
-                    size='icon'
-                    variant='subtle'
-                    state='danger'
-                    className='h-7 w-7 border border-danger-500'
-                  >
-                    <Trash className='h-4 w-4' />
-                  </Button>
+                  {res.is_deleted ? (
+                    <Button
+                      size='icon'
+                      variant='subtle'
+                      state='info'
+                      className='h-7 w-7 border border-info-500'
+                    >
+                      <RotateCcw className='h-4 w-4' />
+                    </Button>
+                  ) : (
+                    <Button
+                      size='icon'
+                      variant='subtle'
+                      state='danger'
+                      className='h-7 w-7 border border-danger-500'
+                    >
+                      <Trash className='h-4 w-4' />
+                    </Button>
+                  )}
                 </AlertDialog.Trigger>
                 <AlertDialog.Content>
                   <AlertDialog.Header>
