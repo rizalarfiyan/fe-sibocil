@@ -5,4 +5,5 @@ export type DeviceResponse = {
   phone_number: string
   identity: string
   role: string
+  is_deleted: boolean
 }

@@ -1,6 +1,6 @@
 import { requestHandler } from '@/utils/request'
 
-import { BaseResponseList, SelectValue } from '@/@types'
+import { BaseRequestByIdPayload, BaseResponseList, SelectValue } from '@/@types'
 import { BaseRequestListPayload } from '@/@types'
 import axios from '@/libs/axios'
 
@@ -16,4 +16,9 @@ const getAllDropdown = requestHandler<
   BaseResponseList<SelectValue>
 >((params) => axios.get('/device/dropdown', { params }))
 
-export { getAll, getAllDropdown }
+const toggleDelete = requestHandler<
+  BaseRequestByIdPayload,
+  BaseResponseList<null>
+>((params) => axios.delete('/device/' + params?.id))
+
+export { getAll, getAllDropdown, toggleDelete }
