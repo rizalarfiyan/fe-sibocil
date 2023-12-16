@@ -128,6 +128,7 @@ const UserScreenForm: React.FC<UserScreenFormProps> = (props) => {
                     options={USER_OPTION}
                     id='user-role'
                     placeholder='Role'
+                    isDisabled={props.isView}
                     onChange={(val: OnChangeValue<unknown, false>) => {
                       onChange((val as SelectValue).value)
                     }}
