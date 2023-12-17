@@ -20,11 +20,18 @@ const DATATABLE_STATUS = {
   deleted: 'deleted',
 } as const
 
+const DATETIME_FORMAT = {
+  date: 'DD MMMM YYYY',
+  time: 'HH:mm:ss',
+  datetime: 'DD MMMM YYYY HH:mm:ss',
+}
+
 export {
   API_BASE_URL,
   APP_NAME,
   AUTH_ROLE,
   COOKIE,
   DATATABLE_STATUS,
+  DATETIME_FORMAT,
   QUERY_KEY,
 }

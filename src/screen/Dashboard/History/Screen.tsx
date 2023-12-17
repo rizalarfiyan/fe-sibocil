@@ -1,8 +1,9 @@
 'use client'
 
-import { Search } from 'lucide-react'
+import { Calendar, Clock, Search } from 'lucide-react'
 import { OnChangeValue } from 'react-select'
 
+import { parseDate } from '@/utils/datetime'
 import { getFullName } from '@/utils/user'
 
 import { SelectValue } from '@/@types'
@@ -10,7 +11,7 @@ import DataTable, { DataTableColumn } from '@/components/DataTable'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import Typography from '@/components/Typography'
-import { AUTH_ROLE } from '@/constants'
+import { AUTH_ROLE, DATETIME_FORMAT } from '@/constants'
 import { DATATABLE_STATUS_OPTION } from '@/constants/options'
 
 import useDashboardHistory from './hook'
@@ -41,6 +42,25 @@ const columns: DataTableColumn = [
     accessorKey: 'failed',
     header: 'Failed',
     enableSorting: true,
+  },
+  {
+    accessorKey: 'date',
+    header: 'Date',
+    enableSorting: true,
+    cell: ({ row }) => {
+      return (
+        <div className='flex flex-col gap-1 text-sm text-white'>
+          <div className='mr-auto flex items-center gap-1.5 rounded-md bg-primary-600 px-2 py-0.5'>
+            <Calendar className='h-4 w-4' />
+            <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.date)}</span>
+          </div>
+          <div className='mr-auto flex items-center gap-1.5 rounded-md bg-primary-600 px-2 py-0.5'>
+            <Clock className='h-4 w-4' />
+            <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.time)}</span>
+          </div>
+        </div>
+      )
+    },
   },
 ]
 

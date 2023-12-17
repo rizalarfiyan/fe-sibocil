@@ -6,6 +6,7 @@ export type HistoryResponse = {
   failed: number
   user: HistoryUserResponse
   device: HistoryDeviceResponse
+  date: string
 }
 
 export interface HistoryDeviceResponse {
