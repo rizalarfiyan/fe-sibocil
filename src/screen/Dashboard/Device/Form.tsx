@@ -12,7 +12,7 @@ import { useDashboardDeviceForm } from './hooks'
 import { DeviceScreenFormProps } from './types'
 
 const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
-  const { form, isDisable, onSubmit, onCopy, tooltip, isUpdate } =
+  const { form, isDisable, onSubmit, onCopy, tooltip, isUpdate, isLoading } =
     useDashboardDeviceForm(props)
 
   return (
@@ -84,7 +84,7 @@ const DeviceScreenForm: React.FC<DeviceScreenFormProps> = (props) => {
         </div>
         {!props.isView && (
           <Dialog.Footer>
-            <Button type='submit' disabled={isDisable}>
+            <Button type='submit' isLoading={isLoading} disabled={isDisable}>
               {isUpdate ? 'Update' : 'Create'}
             </Button>
           </Dialog.Footer>

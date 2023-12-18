@@ -117,6 +117,7 @@ export const useDashboardDeviceForm = (props: DeviceScreenFormProps) => {
   return {
     form,
     isDisable: !isDirty || !isValid,
+    isLoading: apiCreate.isPending || apiUpdate.isPending,
     onSubmit,
     onCopy,
     tooltip,

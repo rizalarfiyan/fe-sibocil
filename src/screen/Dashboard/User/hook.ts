@@ -119,6 +119,7 @@ export const useDashboardUserForm = (props: UserScreenFormProps) => {
   return {
     form,
     isDisable: !isDirty || !isValid,
+    isLoading: apiCreate.isPending || apiUpdate.isPending,
     onSubmit,
     isUpdate: idx && idx !== '',
   }

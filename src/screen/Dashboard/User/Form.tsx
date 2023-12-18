@@ -13,7 +13,8 @@ import { useDashboardUserForm } from './hook'
 import { UserScreenFormProps } from './types'
 
 const UserScreenForm: React.FC<UserScreenFormProps> = (props) => {
-  const { form, isDisable, onSubmit, isUpdate } = useDashboardUserForm(props)
+  const { form, isDisable, onSubmit, isUpdate, isLoading } =
+    useDashboardUserForm(props)
 
   return (
     <Form {...form}>
@@ -143,7 +144,7 @@ const UserScreenForm: React.FC<UserScreenFormProps> = (props) => {
         </div>
         {!props.isView && (
           <Dialog.Footer>
-            <Button type='submit' disabled={isDisable}>
+            <Button type='submit' isLoading={isLoading} disabled={isDisable}>
               {isUpdate ? 'Update' : 'Create'}
             </Button>
           </Dialog.Footer>

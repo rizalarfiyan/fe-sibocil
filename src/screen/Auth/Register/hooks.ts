@@ -71,6 +71,7 @@ const useRegister = (props: RegisterProps) => {
   return {
     form,
     isDisable: !isDirty || !isValid,
+    isLoading: apiRegister.isPending,
     onSubmit,
   }
 }

@@ -12,7 +12,7 @@ export interface RegisterProps {
 }
 
 const RegisterScreen: React.FC<RegisterProps> = (props) => {
-  const { form, isDisable, onSubmit } = useRegister(props)
+  const { form, isDisable, isLoading, onSubmit } = useRegister(props)
 
   return (
     <Form {...form}>
@@ -61,7 +61,12 @@ const RegisterScreen: React.FC<RegisterProps> = (props) => {
             </Form.Item>
           )}
         />
-        <Button type='submit' isFluid disabled={isDisable}>
+        <Button
+          type='submit'
+          isFluid
+          isLoading={isLoading}
+          disabled={isDisable}
+        >
           Register
         </Button>
       </form>
