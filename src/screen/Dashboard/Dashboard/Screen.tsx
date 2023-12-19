@@ -11,10 +11,13 @@ import {
 } from '@/constants/options'
 
 import LineStatistic from './LineStatistic'
+import TableLatestHistory from './TableLatestHistory'
+import useDashboard from '../hooks'
 import DashboardTitle from '../Partials/DashboardTitle'
 
 const DashboardScreen: React.FC = () => {
   const [filter, setFilter] = useState<SelectValue>(DEFAULT_TIME_FREQUENCY)
+  const { user } = useDashboard()
 
   return (
     <div className='space-y-10'>
@@ -35,6 +38,10 @@ const DashboardScreen: React.FC = () => {
         />
       </div>
       <LineStatistic filter={filter} />
+      <div className='flex items-start justify-center gap-10'>
+        <TableLatestHistory userId={user.id} />
+        <TableLatestHistory userId={user.id} />
+      </div>
     </div>
   )
 }

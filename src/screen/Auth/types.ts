@@ -1,6 +1,7 @@
 import { AuthRole } from '@/@types'
 
 export type AuthMeResponse = {
+  id: string
   first_name: string
   last_name: string
   phone_number: string

@@ -9,6 +9,7 @@ const COOKIE = {
 const QUERY_KEY = {
   Me: 'auth-me',
   Statistic: 'statistic',
+  History: 'history',
 }
 
 const AUTH_ROLE = {
