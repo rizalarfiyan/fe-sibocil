@@ -8,6 +8,7 @@ const COOKIE = {
 
 const QUERY_KEY = {
   Me: 'auth-me',
+  Statistic: 'statistic',
 }
 
 const AUTH_ROLE = {
@@ -18,6 +19,14 @@ const AUTH_ROLE = {
 const DATATABLE_STATUS = {
   active: 'active',
   deleted: 'deleted',
+} as const
+
+const TIME_FREQUENCY = {
+  today: 'today',
+  week: 'week',
+  month: 'month',
+  quarter: 'quarter',
+  year: 'year',
 } as const
 
 const DATETIME_FORMAT = {
@@ -34,4 +43,5 @@ export {
   DATATABLE_STATUS,
   DATETIME_FORMAT,
   QUERY_KEY,
+  TIME_FREQUENCY,
 }

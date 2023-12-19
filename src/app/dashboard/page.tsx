@@ -1,9 +1,5 @@
-import Typography from '@/components/Typography'
+import DashboardScreen from '@/screen/Dashboard/Dashboard/Screen'
 
 export default function Dashboard() {
-  return (
-    <Typography variant='h1' as='h1'>
-      Dashboard
-    </Typography>
-  )
+  return <DashboardScreen />
 }

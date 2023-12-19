@@ -1,4 +1,4 @@
-import { AUTH_ROLE } from '@/constants'
+import { AUTH_ROLE, TIME_FREQUENCY } from '@/constants'
 
 export type RequiredPartial<T, K extends keyof T> = T & Required<Pick<T, K>>
 
@@ -8,6 +8,8 @@ export type PageProps = {
 }
 
 export type AuthRole = keyof typeof AUTH_ROLE
+
+export type TimeFrequency = keyof typeof TIME_FREQUENCY
 
 export interface AuthToken {
   first_name: string
