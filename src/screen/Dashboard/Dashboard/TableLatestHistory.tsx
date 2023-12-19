@@ -66,12 +66,12 @@ const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
                   {val.failed}
                 </Table.Cell>
                 <Table.Cell>
-                  <div className='flex flex-col gap-1 text-sm text-secondary-800'>
-                    <div className='mr-auto flex items-center gap-1.5 rounded-md border border-secondary-300 bg-secondary-100 px-2 py-0.5'>
+                  <div className='flex flex-col gap-1 text-xs text-secondary-800'>
+                    <div className='mr-auto flex items-center gap-1.5 rounded-[5px] border border-secondary-300 bg-secondary-100 px-1.5 py-0.5'>
                       <Calendar className='h-4 w-4' />
                       <span>{parseDate(val.date, DATETIME_FORMAT.date)}</span>
                     </div>
-                    <div className='mr-auto flex items-center gap-1.5 rounded-md border border-secondary-300 bg-secondary-100 px-2 py-0.5'>
+                    <div className='mr-auto flex items-center gap-1.5 rounded-[5px] border border-secondary-300 bg-secondary-100 px-1.5 py-0.5'>
                       <Clock className='h-4 w-4' />
                       <span>{parseDate(val.date, DATETIME_FORMAT.time)}</span>
                     </div>

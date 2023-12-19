@@ -49,12 +49,12 @@ const columns: DataTableColumn = [
     enableSorting: true,
     cell: ({ row }) => {
       return (
-        <div className='flex flex-col gap-1 text-sm text-white'>
-          <div className='mr-auto flex items-center gap-1.5 rounded-md bg-primary-600 px-2 py-0.5'>
+        <div className='flex flex-col gap-1 text-xs text-white'>
+          <div className='mr-auto flex items-center gap-1.5 rounded-[5px] bg-primary-600 px-2 py-1'>
             <Calendar className='h-4 w-4' />
             <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.date)}</span>
           </div>
-          <div className='mr-auto flex items-center gap-1.5 rounded-md bg-primary-600 px-2 py-0.5'>
+          <div className='mr-auto flex items-center gap-1.5 rounded-[5px] bg-primary-600 px-2 py-1'>
             <Clock className='h-4 w-4' />
             <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.time)}</span>
           </div>
