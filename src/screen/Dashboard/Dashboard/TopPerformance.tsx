@@ -1,38 +1,36 @@
 import { useQuery } from '@tanstack/react-query'
-import { Calendar, Clock } from 'lucide-react'
 import { useMemo } from 'react'
 
-import { parseDate } from '@/utils/datetime'
+import { getFullName } from '@/utils/user'
 
+import { SelectValue, TimeFrequency } from '@/@types'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
 import Typography from '@/components/Typography'
-import {
-  DATETIME_FORMAT,
-  DEFAULT_LIMIT_STATISTIC,
-  QUERY_KEY,
-} from '@/constants'
+import { DEFAULT_LIMIT_STATISTIC, QUERY_KEY } from '@/constants'
 
-import { getAll } from '../History/service'
+import { getTopPerformance } from './service'
+import { HistoryTopPerformanceRequest } from './types'
+import AvatarInformation from '../Partials/AvatarInformation'
 
-interface TableLatestHistoryProps {
-  userId: string
+interface TopPerformanceProps {
+  filter: SelectValue
   limit?: number
 }
 
-const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
-  const { userId, limit } = props
+const TopPerformance: React.FC<TopPerformanceProps> = (props) => {
+  const { filter, limit } = props
 
-  const condition = useMemo(() => {
+  const condition = useMemo((): HistoryTopPerformanceRequest => {
     return {
+      time_frequency: filter.value as TimeFrequency,
       limit: limit || DEFAULT_LIMIT_STATISTIC,
-      user_id: userId,
     }
-  }, [userId, limit])
+  }, [filter, limit])
 
   const { data, isPending } = useQuery({
     queryKey: [QUERY_KEY.Statistic, condition],
-    queryFn: () => getAll(condition),
+    queryFn: () => getTopPerformance(condition),
   })
 
   if (isPending) {
@@ -43,7 +41,7 @@ const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
     )
   }
 
-  const getData = data?.data?.content || []
+  const getData = data?.data || []
 
   return (
     <div className='w-full rounded-md border border-slate-200 bg-white'>
@@ -51,35 +49,37 @@ const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
         <Table.Header>
           <Table.Row>
             <Table.Head className='w-6'>#</Table.Head>
-            <Table.Head>Device</Table.Head>
+            <Table.Head>Identity</Table.Head>
             <Table.Head className='text-center'>Success</Table.Head>
             <Table.Head className='text-center'>Failed</Table.Head>
-            <Table.Head>Date</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {getData.map((val, idx) => {
+            const fullName = getFullName(val.first_name, val.last_name)
             return (
-              <Table.Row key={val.id}>
+              <Table.Row key={idx}>
                 <Table.Cell className='font-medium'>{idx + 1}</Table.Cell>
-                <Table.Cell>{val.device.name}</Table.Cell>
+                <Table.Cell className='flex items-center gap-3'>
+                  <AvatarInformation fullName={fullName} />
+                  <div className='block space-y-1'>
+                    <Typography
+                      variant='p'
+                      as='h4'
+                      className='max-w-[200px] truncate font-semibold'
+                    >
+                      {fullName}
+                    </Typography>
+                    <Typography variant='p' className='text-xs'>
+                      {val.phone_number}
+                    </Typography>
+                  </div>
+                </Table.Cell>
                 <Table.Cell className='text-center text-success-600'>
                   {val.success}
                 </Table.Cell>
                 <Table.Cell className='text-center text-danger-600'>
                   {val.failed}
-                </Table.Cell>
-                <Table.Cell>
-                  <div className='flex flex-col gap-1 text-xs text-secondary-800'>
-                    <div className='mr-auto flex items-center gap-1.5 rounded-[5px] border border-secondary-300 bg-secondary-100 px-1.5 py-0.5'>
-                      <Calendar className='h-4 w-4' />
-                      <span>{parseDate(val.date, DATETIME_FORMAT.date)}</span>
-                    </div>
-                    <div className='mr-auto flex items-center gap-1.5 rounded-[5px] border border-secondary-300 bg-secondary-100 px-1.5 py-0.5'>
-                      <Clock className='h-4 w-4' />
-                      <span>{parseDate(val.date, DATETIME_FORMAT.time)}</span>
-                    </div>
-                  </div>
                 </Table.Cell>
               </Table.Row>
             )
@@ -92,7 +92,7 @@ const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
             variant='p'
             className='text-center text-base text-secondary-400'
           >
-            History Not Found
+            Top Performance Not Found
           </Typography>
         </div>
       )}
@@ -100,4 +100,4 @@ const TableLatestHistory: React.FC<TableLatestHistoryProps> = (props) => {
   )
 }
 
-export default TableLatestHistory
+export default TopPerformance

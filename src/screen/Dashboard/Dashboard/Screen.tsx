@@ -5,6 +5,7 @@ import { OnChangeValue } from 'react-select'
 
 import { SelectValue } from '@/@types'
 import Select from '@/components/Select'
+import Typography from '@/components/Typography'
 import {
   DEFAULT_TIME_FREQUENCY,
   TIME_FREQUENCY_OPTION,
@@ -12,6 +13,7 @@ import {
 
 import LineStatistic from './LineStatistic'
 import TableLatestHistory from './TableLatestHistory'
+import TopPerformance from './TopPerformance'
 import useDashboard from '../hooks'
 import DashboardTitle from '../Partials/DashboardTitle'
 
@@ -39,8 +41,18 @@ const DashboardScreen: React.FC = () => {
       </div>
       <LineStatistic filter={filter} />
       <div className='flex items-start justify-center gap-10'>
-        <TableLatestHistory userId={user.id} />
-        <TableLatestHistory userId={user.id} />
+        <div className='w-full space-y-4'>
+          <Typography variant='h3' as='h1' className='text-secondary-800'>
+            Last Activity
+          </Typography>
+          <TableLatestHistory userId={user.id} />
+        </div>
+        <div className='w-full space-y-4'>
+          <Typography variant='h3' as='h1' className='text-secondary-800'>
+            Top Performance
+          </Typography>
+          <TopPerformance filter={filter} />
+        </div>
       </div>
     </div>
   )

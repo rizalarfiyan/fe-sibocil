@@ -1,7 +1,8 @@
-import { getAvatarName, getFullName } from '@/utils/user'
+import { getFullName } from '@/utils/user'
 
 import Typography from '@/components/Typography'
 
+import AvatarInformation from './AvatarInformation'
 import useDashboard from '../hooks'
 
 const HeaderInformation: React.FC = () => {
@@ -9,11 +10,9 @@ const HeaderInformation: React.FC = () => {
 
   return (
     <div className='flex items-center gap-2'>
-      <div className='flex h-12 w-12 items-center justify-center rounded-md border border-secondary-200 bg-secondary-100'>
-        <Typography variant='h4' as='p' className='text-secondary-600'>
-          {getAvatarName(getFullName(user.first_name, user.last_name))}
-        </Typography>
-      </div>
+      <AvatarInformation
+        fullName={getFullName(user.first_name, user.last_name)}
+      />
       <div className='block space-y-1'>
         <Typography
           variant='p'
@@ -23,7 +22,7 @@ const HeaderInformation: React.FC = () => {
           {getFullName(user.first_name, user.last_name)}
         </Typography>
         <Typography variant='p' className='text-xs'>
-          +{user.phone_number}
+          {user.phone_number}
         </Typography>
       </div>
     </div>
