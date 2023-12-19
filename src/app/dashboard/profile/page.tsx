@@ -1,9 +1,5 @@
-import Typography from '@/components/Typography'
+import ProfileScreen from '@/screen/Dashboard/Profile/Screen'
 
 export default function Profile() {
-  return (
-    <Typography variant='h1' as='h1'>
-      Profile
-    </Typography>
-  )
+  return <ProfileScreen />
 }
