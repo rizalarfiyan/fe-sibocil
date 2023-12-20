@@ -58,8 +58,8 @@ const DeviceScreen: React.FC = () => {
             industry.'
       />
       <div className='space-y-5'>
-        <div className='flex flex-row items-center justify-between gap-2'>
-          <div className='flex justify-start gap-2'>
+        <div className='flex flex-col items-center justify-between gap-2 xl:flex-row'>
+          <div className='flex w-full flex-wrap justify-center gap-2 xl:flex-nowrap xl:justify-start'>
             <Input
               name='search'
               value={search}
@@ -84,7 +84,10 @@ const DeviceScreen: React.FC = () => {
           <div className='flex-shrink' />
           <Dialog open={createState.isOpen} onOpenChange={createState.toggle}>
             <Dialog.Trigger asChild>
-              <Button rightIcon={<Plus className='ml-1 h-5 w-5' />}>
+              <Button
+                rightIcon={<Plus className='ml-1 h-5 w-5' />}
+                className='whitespace-nowrap'
+              >
                 Create Device
               </Button>
             </Dialog.Trigger>

@@ -50,11 +50,11 @@ const columns: DataTableColumn = [
     cell: ({ row }) => {
       return (
         <div className='flex flex-col gap-1 text-xs text-white'>
-          <div className='mr-auto flex items-center gap-1.5 rounded-[5px] bg-primary-600 px-2 py-1'>
+          <div className='mr-auto flex items-center gap-1.5 whitespace-nowrap rounded-[5px] bg-primary-600 px-2 py-1'>
             <Calendar className='h-4 w-4' />
             <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.date)}</span>
           </div>
-          <div className='mr-auto flex items-center gap-1.5 rounded-[5px] bg-primary-600 px-2 py-1'>
+          <div className='mr-auto flex items-center gap-1.5 whitespace-nowrap rounded-[5px] bg-primary-600 px-2 py-1'>
             <Clock className='h-4 w-4' />
             <span>{parseDate(row.getValue('date'), DATETIME_FORMAT.time)}</span>
           </div>
@@ -83,7 +83,7 @@ const HistoryScreen: React.FC = () => {
             industry.'
       />
       <div className='space-y-5'>
-        <div className='flex flex-row items-center justify-between gap-2'>
+        <div className='flex flex-col items-center justify-between gap-2 xl:flex-row'>
           <Input
             name='search'
             value={search}
@@ -92,7 +92,7 @@ const HistoryScreen: React.FC = () => {
             rightIcon={<Search className='h-5 w-5 text-secondary-400' />}
             className='max-w-sm'
           />
-          <div className='flex w-full justify-end gap-2'>
+          <div className='flex w-full flex-wrap justify-center gap-2 xl:flex-nowrap xl:justify-end'>
             <Select.Pagination
               className='w-[240px]'
               value={filter.device}

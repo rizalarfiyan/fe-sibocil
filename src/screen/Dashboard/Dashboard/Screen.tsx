@@ -22,8 +22,8 @@ const DashboardScreen: React.FC = () => {
   const { user } = useDashboard()
 
   return (
-    <div className='space-y-10'>
-      <div className='flex items-center justify-between gap-2'>
+    <div className='space-y-6 md:space-y-10'>
+      <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
         <DashboardTitle
           title='Dashboard'
           description='Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -40,7 +40,7 @@ const DashboardScreen: React.FC = () => {
         />
       </div>
       <LineStatistic filter={filter} />
-      <div className='flex items-start justify-center gap-10'>
+      <div className='flex flex-col items-start justify-center gap-6 md:gap-10 2xl:flex-row'>
         <div className='w-full space-y-4'>
           <Typography variant='h3' as='h1' className='text-secondary-800'>
             Last Activity
