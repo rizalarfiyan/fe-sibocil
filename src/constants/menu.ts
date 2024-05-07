@@ -11,7 +11,7 @@ const SIDEBAR: SidebarData[] = [
   },
   {
     type: 'devide',
-    title: 'Revend',
+    title: 'Sibocil',
     items: [
       {
         type: 'item',

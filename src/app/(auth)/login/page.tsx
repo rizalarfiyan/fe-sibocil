@@ -5,7 +5,7 @@ export default function Login() {
   return (
     <Base
       title='Login'
-      description='Securely access your revend dashboard by entering your login credentials.'
+      description='Securely access your sibocil dashboard by entering your login credentials.'
       hasBack
     >
       <LoginScreen />

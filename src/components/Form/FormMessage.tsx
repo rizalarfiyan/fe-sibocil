@@ -24,7 +24,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
 
     const body = error ? String(error?.message) : children
     const hasCounter = (maxCounter || 0) > 0
-
     if (!body && !hasCounter) {
       return null
     }

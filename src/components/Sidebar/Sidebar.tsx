@@ -24,7 +24,7 @@ const Sidebar = React.forwardRef<
       >
         <div className='mx-auto justify-center gap-3 rounded-sm p-1 px-2 py-2.5 transition-colors duration-300 hover:bg-secondary-200/50'>
           <Typography as='h1' variant='h2' className='text-secondary-600'>
-            Revend
+            Sibocil
           </Typography>
         </div>
       </Link>

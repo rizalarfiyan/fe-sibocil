@@ -16,8 +16,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'FE Revend',
-  description: 'Frontend Recycle Vending Machine',
+  title: 'FE Sibocil',
+  description:
+    'Frontend Sibocil Sistem Pengelolaan Botol Cerdas Untuk Lingkungan',
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren) {

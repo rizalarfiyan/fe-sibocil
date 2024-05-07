@@ -6,7 +6,7 @@ export const getTitleDescription = (step: AuthVerificationStep) => {
       return {
         title: 'Register',
         description:
-          'Create a Revend account effortlessly by providing essential information and contribute to recycling efforts.',
+          'Create a Sibocil account effortlessly by providing essential information and contribute to recycling efforts.',
       }
     case AuthVerificationStep.Otp:
       return {
@@ -18,7 +18,7 @@ export const getTitleDescription = (step: AuthVerificationStep) => {
       return {
         title: 'Wait a moment',
         description:
-          'Welcome to Revend! Explore your recycling statistics on the user-friendly dashboard.',
+          'Welcome to Sibocil! Explore your recycling statistics on the user-friendly dashboard.',
       }
     default:
       return {
